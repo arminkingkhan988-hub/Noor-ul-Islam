@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#075b45">
+<title>نورالاسلام | Noor-ul-Islam</title>
+<style>
+:root{--green:#075b45;--green2:#0b7658;--gold:#e1bf67;--paper:#f4f7f2;--ink:#17352c;--muted:#60746b}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,"Noto Naskh Arabic",sans-serif;background:var(--paper);color:var(--ink)}
+header{background:linear-gradient(135deg,#064333,#0b7658);color:#fff;padding:23px 17px 20px;border-radius:0 0 25px 25px}
+.brand{font-size:29px;font-weight:850;letter-spacing:.2px}.tagline{opacity:.9;font-size:13px;margin-top:4px}
+.toolbar{display:flex;gap:8px;margin-top:16px}
+select,input{border:0;border-radius:11px;padding:11px 12px;font:inherit;min-width:0}
+select{max-width:39%;background:#fff}input{flex:1;background:#fff}
+main{max-width:900px;margin:auto;padding:15px}
+.hero{background:#fff;border:1px solid #e2e9e1;border-radius:17px;padding:15px;margin:0 0 14px;line-height:1.9}
+.badge{display:inline-block;background:#e7f4eb;color:#075b45;border-radius:20px;padding:3px 10px;font-size:12px;margin-bottom:5px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.card{background:#fff;border:1px solid #e3e9e2;border-radius:16px;padding:14px;text-align:inherit;cursor:pointer;min-height:116px;box-shadow:0 3px 12px #163d2508}
+.card:active{transform:scale(.99)}.icon{font-size:26px}.title{font-weight:800;margin-top:5px}.desc{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.6}
+.panel{display:none;background:#fff;border:1px solid #e2e9e1;border-radius:17px;padding:17px;margin-top:14px;line-height:2;white-space:pre-line}
+.panel h2{color:var(--green);margin:5px 0 12px}.panel h3{margin-bottom:4px}
+button{font:inherit;cursor:pointer}.back,.bookmark{border:0;border-radius:10px;padding:9px 13px;background:var(--green);color:#fff}
+.bookmark{background:#e7f4eb;color:var(--green);margin-inline-start:7px}
+.panel-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.quranlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.surah{padding:11px;border-radius:10px;background:#f3f7f2;border:1px solid #e2e9e1;text-align:inherit}
+small{color:var(--muted)}footer{text-align:center;color:#687a71;padding:22px 12px;font-size:12px;line-height:1.8}
+@media(min-width:620px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.quranlist{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">🕌 نورالاسلام</div>
+ <div class="tagline">د دین د زده کړې لارښود · Noor-ul-Islam</div>
+ <div class="toolbar">
+  <select id="lang" aria-label="Language"><option value="ps">پښتو</option><option value="ar">العربية</option><option value="en">English</option></select>
+  <input id="search" placeholder="لټون: اودس، لمونځ، روژه..." autocomplete="off">
+ </div>
+</header>
+<main>
+ <div class="hero" id="intro">
+  <span class="badge">وړیا · بې اعلانونو · آفلاین</span><br>
+  <b>السلام علیکم ورحمة الله وبرکاته</b><br>
+  د اسلام د زده کړې لپاره یوه ساده لار. دا لومړنۍ نسخه ده؛ د مهمو شرعي پرېکړو لپاره له باوري عالم سره مشوره وکړئ.
+ </div>
+ <div class="grid" id="grid"></div>
+ <section class="panel" id="panel">
+  <div class="panel-actions"><button class="back" id="back">← بېرته</button><button class="bookmark" id="bookmark">☆ نښه کول</button></div>
+  <div id="detail"></div>
+ </section>
+</main>
+<footer>وړیا · بې له اعلانونو · له انټرنېټ پرته کار کوي<br>Free · Ad-free · Offline-ready<br>د دیني محتوا د کره والي لپاره باید معتبرې سرچینې وکارول شي.</footer>
+<script>
+const content = [
+{icon:"📖",id:"quran",ps:"قرآن کریم",ar:"القرآن الكريم",en:"The Qur’an",dps:"د ۱۱۴ سورتونو نوملړ",dar:"قائمة السور الـ١١٤",den:"List of 114 surahs",body:{
+ps:"قرآن کریم د الله تعالی کتاب دی. لاندې د ۱۱۴ سورتونو نوملړ د پېژندنې لپاره دی. په دې نسخه کې د قرآن بشپړ عربي متن او ژباړې نه دي شاملې؛ د مصحف متن باید له کره او تایید شوې سرچینې څخه اضافه شي.",
+ar:"القرآن الكريم كتاب الله تعالى. القائمة التالية لأسماء السور الـ١١٤ للتعرّف عليها. لا تتضمن هذه النسخة النص الكامل للمصحف أو الترجمات؛ ويجب إدراجها من مصدر موثوق ومراجع.",
+en:"The Qur’an is the Book of Allah. The list below names the 114 surahs. This demo does not include the full Arabic text or translations; these must be added from a trusted, verified source."
+}},
+{icon:"🕌",id:"prayer",ps:"لمونځ",ar:"الصلاة",en:"Prayer",dps:"فرضونه، واجبات او ورځني لمونځونه",dar:"الفرائض والواجبات والصلوات",den:"Essentials and daily prayers",body:{
+ps:"د لمانځه په زده کړه کې دا موضوعات مهم دي:\n• د لمانځه شرطونه او د لمانځه دننه فرضونه\n• واجبات، سنتونه او مکروهات\n• د پنځو وختونو رکعتونه\n• وتر، جمعه، اختر او جنازه\n• د سهوې سجده\n\nد حنفي فقهې تفصیلي احکام باید له باوري حنفي کتاب او عالم سره تایید شي. دا برخه د زده کړې د موضوعاتو لارښود دی، نه د ټولو احکامو بشپړ متن.",
+ar:"من موضوعات تعلم الصلاة: شروطها وفرائضها وواجباتها وسننها ومكروهاتها، وعدد ركعات الصلوات الخمس، والوتر والجمعة والعيد والجنازة وسجود السهو. ينبغي مراجعة التفاصيل من مصدر حنفي موثوق.",
+en:"Prayer topics include conditions, essentials, obligations, sunnah acts, disliked acts, daily prayer units, Witr, Friday and Eid prayers, funeral prayer, and prostration of forgetfulness. Detailed Hanafi rulings should be verified with trusted sources."
+}},
+{icon:"💧",id:"wudu",ps:"اودس",ar:"الوضوء",en:"Wudu",dps:"د حنفي فقهې څلور فرضونه",dar:"فرائض الوضوء عند الحنفية",den:"Four Hanafi essentials",body:{
+ps:"د حنفي فقهې له مخې د اوداسه څلور فرضونه دي:\n۱. د ټول مخ مینځل.\n۲. د دواړو لاسونو له څنګلو سره مینځل.\n۳. د سر د څلورمې برخې مسح.\n۴. د دواړو پښو له بجلکو سره مینځل.\n\nد اوداسه بشپړه سنت طریقه او ماتوونکي باید له معتبرې حنفي سرچینې سره سم زده شي.",
+ar:"فرائض الوضوء عند الحنفية أربعة: غسل الوجه، وغسل اليدين مع المرفقين، ومسح ربع الرأس، وغسل القدمين مع الكعبين. تُراجع بقية التفاصيل من مصدر موثوق.",
+en:"In Hanafi jurisprudence, wudu has four obligatory acts: washing the face, washing both arms including elbows, wiping one quarter of the head, and washing both feet including ankles. Learn the full method and invalidators from a reliable Hanafi source."
+}},
+{icon:"🚿",id:"ghusl",ps:"غسل",ar:"الغسل",en:"Ghusl",dps:"د غسل درې فرضونه",dar:"فرائض الغسل",den:"Three Hanafi essentials",body:{
+ps:"د حنفي فقهې له مخې د غسل درې فرضونه دي:\n۱. خوله مینځل.\n۲. پوزې ته اوبه رسول.\n۳. ټول بدن مینځل، څو هېڅ ځای وچ پاتې نه شي.\n\nد غسل د وجوب حالتونه او تفصیلي مسائل له باوري عالم څخه زده کړئ.",
+ar:"فرائض الغسل عند الحنفية: المضمضة، والاستنشاق، وغسل جميع البدن بحيث لا يبقى موضع جاف. تُراجع تفاصيل موجبات الغسل مع عالم موثوق.",
+en:"In Hanafi jurisprudence, ghusl has three obligatory acts: rinsing the mouth, rinsing the nose, and washing the entire body so no area remains dry. Consult a trusted scholar about when it is required."
+}},
+{icon:"🌱",id:"tayammum",ps:"تیمم",ar:"التيمم",en:"Tayammum",dps:"شرایط او طریقه",dar:"الشروط والطريقة",den:"Conditions and method",body:{
+ps:"تیمم د ځانګړو شرعي عذرونو او شرایطو په صورت کې د پاکوالي بدیل دی. د اوبو نشتوالی، د اوبو کارولو زیان او د تیمم طریقه ځانګړي تفصیل لري؛ له باوري حنفي عالم څخه یې زده کړئ.",
+ar:"التيمم بدل عن الطهارة بالماء في حالات وشروط شرعية محددة. تفاصيل الأعذار والطريقة تُراجع من مصدر حنفي موثوق.",
+en:"Tayammum is an alternative form of purification in specific legally recognized circumstances. Conditions, valid excuses and method should be learned from a trusted Hanafi source."
+}},
+{icon:"🤲",id:"dua",ps:"دعاګانې او اذکار",ar:"الأدعية والأذكار",en:"Duas & adhkar",dps:"سهار، ماښام او ورځني اذکار",dar:"أذكار الصباح والمساء واليوم",den:"Morning, evening and daily remembrances",body:{
+ps:"په دې برخه کې باید د سهار او ماښام اذکار، د خوب، خوراک، سفر او جومات دعاګانې د عربي متن، پښتو او انګلیسي معنا او کره سرچینې سره شاملې شي. د سرچینې له تایید پرته دعا یا حدیث ته ځانګړی ثواب مه منسوبوئ.",
+ar:"ينبغي أن تتضمن هذه الصفحة أذكار الصباح والمساء وأدعية النوم والطعام والسفر والمسجد بالنص والمعنى والمصدر الصحيح. لا تُنسب فضائل محددة دون توثيق.",
+en:"This section should include morning and evening adhkar and supplications for sleep, food, travel and the mosque, with Arabic, translations and reliable references. Do not attribute specific rewards without verification."
+}},
+{icon:"🌙",id:"fasting",ps:"روژه",ar:"الصيام",en:"Fasting",dps:"نیت، ماتوونکي، قضا او کفاره",dar:"النية والمفسدات والقضاء والكفارة",den:"Intention, invalidators and make-up fasts",body:{
+ps:"د روژې مهم موضوعات: نیت، د روژې ماتوونکي، قضا، کفاره، د مسافر او ناروغ احکام او د روژې اخلاق. د ځانګړې پېښې حکم د حالت له جزئیاتو سره بدلېدای شي؛ له باوري عالم څخه پوښتنه وکړئ.",
+ar:"من موضوعات الصيام: النية، والمفسدات، والقضاء، والكفارة، وأحكام المسافر والمريض وآداب الصيام. قد يختلف الحكم بحسب تفاصيل الحالة.",
+en:"Fasting topics include intention, invalidators, make-up fasts, expiation, rules for travellers and illness, and fasting etiquette. A ruling for a specific case may depend on its details."
+}},
+{icon:"💰",id:"zakat",ps:"زکات",ar:"الزكاة",en:"Zakat",dps:"نصاب، مستحقین او مالونه",dar:"النصاب والمستحقون والأموال",den:"Nisab, recipients and assets",body:{
+ps:"د زکات د زده کړې موضوعات: نصاب، د قمري کال شرط، د زکات مستحقین او د سرو زرو، سپینو زرو، سوداګریزو مالونو او نورو شتمنیو احکام. د اندازې محاسبه باید د اوسني نصاب او باوري عالم له لارښوونې سره وشي.",
+ar:"تشمل موضوعات الزكاة النصاب، ومرور الحول، والمستحقين، وأحكام الذهب والفضة وعروض التجارة وغيرها. ينبغي التحقق من النصاب وطريقة الحساب.",
+en:"Zakat topics include nisab, the lunar-year condition, eligible recipients, and rules for gold, silver, trade goods and other assets. Verify the current threshold and calculation with a trusted source."
+}},
+{icon:"🕋",id:"hajj",ps:"حج او عمره",ar:"الحج والعمرة",en:"Hajj & Umrah",dps:"احرام او د مناسکو ترتیب",dar:"الإحرام وترتيب المناسك",den:"Ihram and order of rites",body:{
+ps:"د حج او عمرې زده کړه کې احرام، طواف، سعي، عرفات، مزدلفه، منی، قرباني، حلق یا تقصیر او د مناسکو ترتیب شامل دي. د سفر له مخکې له باوري عالم او رسمي لارښود سره یې تایید کړئ.",
+ar:"تشمل مناسك الحج والعمرة الإحرام والطواف والسعي وعرفة ومزدلفة ومنى والهدي والحلق أو التقصير وترتيب الأعمال. راجع دليلاً موثوقاً قبل السفر.",
+en:"Hajj and Umrah topics include ihram, tawaf, sa‘i, Arafah, Muzdalifah, Mina, sacrifice, shaving/trimming, and the order of rites. Verify details with trusted guidance before travel."
+}},
+{icon:"📿",id:"faith",ps:"عقیده او ایمان",ar:"العقيدة والإيمان",en:"Faith & belief",dps:"د اسلام او ایمان ارکان",dar:"أركان الإسلام والإيمان",den:"Pillars of Islam and faith",body:{
+ps:"د اسلام پنځه ارکان: شهادت، لمونځ، زکات، د رمضان روژه او حج (د توان په صورت کې). د ایمان شپږ ارکان په مشهور حدیث کې بیان شوي: پر الله، ملایکو، کتابونو، رسولانو، آخرت او تقدیر ایمان. د عقیدې تفصیلي بحث له باوري عالم سره زده کړئ.",
+ar:"أركان الإسلام خمسة: الشهادتان، والصلاة، والزكاة، وصوم رمضان، والحج للمستطيع. وأركان الإيمان ستة: الإيمان بالله وملائكته وكتبه ورسله واليوم الآخر والقدر.",
+en:"The five pillars of Islam are the testimony of faith, prayer, zakat, Ramadan fasting, and Hajj for those able. The six pillars of faith are belief in Allah, angels, revealed books, messengers, the Last Day, and divine decree."
+}},
+{icon:"🌹",id:"seerah",ps:"د رسول الله ﷺ سیرت",ar:"السيرة النبوية",en:"Prophetic biography",dps:"ژوند، اخلاق او مهمې پېښې",dar:"الحياة والأخلاق والأحداث",den:"Life, character and key events",body:{
+ps:"د سیرت په زده کړه کې د مکې ژوند، هجرت، مدینې ته رسېدل، د مدینې ټولنه، مهم تړونونه او د رسول الله ﷺ اخلاق شامل دي. تاریخي روایتونه باید له معتبرې سرچینې سره پرتله شي.",
+ar:"تشمل السيرة حياة مكة والهجرة والوصول إلى المدينة وبناء المجتمع والعهود المهمة وأخلاق النبي ﷺ. ينبغي التحقق من الروايات التاريخية من مصادر معتبرة.",
+en:"Prophetic biography covers life in Makkah, the Hijrah, arrival in Madinah, community-building, important treaties and the Prophet’s character. Historical reports should be checked against reputable sources."
+}},
+{icon:"👨‍👩‍👧",id:"rights",ps:"کورنۍ او د خلکو حقوق",ar:"الأسرة وحقوق الناس",en:"Family & people’s rights",dps:"مور او پلار، ګاونډیان او کورنۍ",dar:"الوالدان والجيران والأسرة",den:"Parents, neighbours and family",body:{
+ps:"اسلام د مور او پلار، خپلوانو، ګاونډیانو، مېړه او مېرمنې، ماشومانو او نورو خلکو د حقونو په اړه لارښوونې لري. د نکاح، طلاق او میراث په څېر حساسو موضوعاتو کې د خپل حالت جزئیات له باوري عالم یا اړوند متخصص سره شریک کړئ.",
+ar:"للإسلام توجيهات في حقوق الوالدين والأقارب والجيران والزوجين والأطفال والناس. أما مسائل الزواج والطلاق والميراث فتحتاج إلى سؤال أهل العلم مع ذكر تفاصيل الحالة.",
+en:"Islam provides guidance on the rights of parents, relatives, neighbours, spouses, children and others. Sensitive issues such as marriage, divorce and inheritance require qualified advice based on the details."
+}},
+{icon:"⚰️",id:"janazah",ps:"جنازه او مړینه",ar:"الجنائز",en:"Funeral matters",dps:"د مړي حقوق او جنازه",dar:"حقوق الميت وصلاة الجنازة",den:"Rights of the deceased and funeral prayer",body:{
+ps:"د مړي د غسل، کفن، جنازې لمونځ او دفن احکام د فقهې له مهمو موضوعاتو دي. ځکه دا عملي او د کورنۍ لپاره حساس وخت وي، د سیمه‌ییز باوري عالم لارښوونې تعقیب کړئ.",
+ar:"من أحكام الجنائز غسل الميت وتكفينه وصلاة الجنازة ودفنه. نظراً لحساسية الأمر، اتبع إرشادات عالم موثوق في منطقتك.",
+en:"Funeral topics include washing and shrouding the deceased, funeral prayer and burial. Because this is a sensitive practical matter, follow a trusted local scholar’s guidance."
+}},
+{icon:"🧭",id:"qibla",ps:"قبله او د لمانځه وختونه",ar:"القبلة ومواقيت الصلاة",en:"Qibla & prayer times",dps:"دا برخه لا فعاله نه ده",dar:"هذه الميزة غير مفعلة بعد",den:"Feature not active yet",body:{
+ps:"په دې نسخه کې د قبله‌نما او د لمانځه اتومات وختونه لا فعال نه دي. د دقیقو وختونو لپاره د خپل ښار د باوري جومات یا رسمي تقویم معلومات وکاروئ. د وختونو حساب د موقعیت او محاسبې د طریقې له مخې توپیر کولی شي.",
+ar:"ميزة تحديد القبلة وحساب المواقيت التلقائي غير مفعلة في هذه النسخة. استخدم تقويماً موثوقاً في مدينتك؛ فقد تختلف المواقيت بحسب الموقع وطريقة الحساب.",
+en:"The compass and automatic prayer-time calculation are not active in this version. Use a trusted local mosque timetable; prayer times can vary by location and calculation method."
+}},
+{icon:"🧠",id:"quiz",ps:"د زده کړې ازموینه",ar:"اختبار التعلم",en:"Learning quiz",dps:"د خپلې پوهې تمرین",dar:"تدرب على معلوماتك",den:"Practice what you learn",body:{
+ps:"د ازموینې برخه به د کره او تایید شوو دیني معلوماتو له مخې جوړه شي. په راتلونکې نسخه کې د پوښتنو، ځوابونو او د پرمختګ د ثبتولو سیستم ورزیاتېدای شي.",
+ar:"سيُبنى الاختبار على معلومات دينية موثوقة ومراجعة. يمكن إضافة أسئلة وأجوبة وحفظ التقدم في نسخة لاحقة.",
+en:"The quiz should be built from verified religious content. Questions, answers and progress tracking can be added in a later version."
+}}
+];
+const surahs = [
+"الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"
+];
+const labels={
+ps:{intro:"السلام علیکم ورحمة الله وبرکاته\nد اسلام د زده کړې لپاره یوه ساده لار. دا لومړنۍ نسخه ده؛ د مهمو شرعي پرېکړو لپاره له باوري عالم سره مشوره وکړئ.",back:"← بېرته",mark:"☆ نښه کول",marked:"★ نښه شوې",unmark:"☆ نښه کول",quranNote:"د قرآن بشپړ متن او ژباړې په دې نسخه کې نه دي شاملې.",search:"لټون: اودس، لمونځ، روژه...",surah:"سورت",count:"سورتونه",warning:"یادونه: دا اپلیکیشن د زده کړې لارښود دی؛ د ځانګړي شرعي حکم لپاره له باوري عالم سره مشوره وکړئ."},
+ar:{intro:"السلام عليكم ورحمة الله وبركاته\nدليل مبسط لتعلم الإسلام. هذه نسخة أولية؛ استشر عالماً موثوقاً في المسائل الشرعية الخاصة.",back:"رجوع ←",mark:"☆ حفظ",marked:"★ محفوظ",unmark:"☆ حفظ",quranNote:"النص الكامل للقرآن وترجماته غير متوفر في هذه النسخة.",search:"ابحث: الصلاة، الوضوء، الصيام...",surah:"سورة",count:"سورة",warning:"تنبيه: هذا التطبيق دليل تعليمي؛ استشر عالماً موثوقاً في المسائل الشرعية الخاصة."},
+en:{intro:"Assalamu alaikum wa rahmatullahi wa barakatuh.\nA simple guide to learning about Islam. This is an initial version; consult a qualified scholar for personal religious rulings.",back:"← Back",mark:"☆ Bookmark",marked:"★ Bookmarked",unmark:"☆ Bookmark",quranNote:"The full Qur’an text and translations are not included in this version.",search:"Search: wudu, prayer, fasting...",surah:"Surah",count:"surahs",warning:"Note: This app is a learning guide. Consult a qualified scholar for personal religious rulings."}
+};
+let lang="ps", current=null;
+function t(o){return o[lang]||o.ps}
+function render(){
+ const q=document.getElementById("search").value.trim().toLocaleLowerCase();
+ document.documentElement.lang=lang;document.documentElement.dir=lang==="en"?"ltr":"rtl";
+ document.getElementById("search").placeholder=labels[lang].search;
+ document.getElementById("intro").innerHTML='<span class="badge">Free · Ad-free · Offline-ready</span><br>'+labels[lang].intro.replace(/\n/g,"<br>");
+ const grid=document.getElementById("grid");grid.innerHTML="";
+ content.filter(x=>(t(x).toLowerCase().includes(q)||t({ps:x.dps,ar:x.dar,en:x.den}).toLowerCase().includes(q))).forEach(x=>{
+   const b=document.createElement("button");b.className="card";
+   b.innerHTML='<div class="icon">'+x.icon+'</div><div class="title">'+t(x)+'</div><div class="desc">'+t({ps:x.dps,ar:x.dar,en:x.den})+'</div>';
+   b.onclick=()=>openSection(x);grid.appendChild(b);
+ });
+ document.getElementById("panel").style.display="none";
+}
+function openSection(x){
+ current=x;document.getElementById("grid").style.display="none";
+ document.getElementById("panel").style.display="block";
+ document.getElementById("back").textContent=labels[lang].back;
+ const saved=JSON.parse(localStorage.getItem("noorBookmarks")||"[]");
+ document.getElementById("bookmark").textContent=saved.includes(x.id)?labels[lang].marked:labels[lang].mark;
+ let body=t(x.body).replace(/\n/g,"<br>");
+ if(x.id==="quran"){
+  body+='<h3>'+ (lang==="ps"?"د سورتونو نوملړ":lang==="ar"?"قائمة السور":"Surah list")+'</h3><div class="quranlist">'+surahs.map((s,i)=>'<div class="surah">'+(i+1)+". "+s+'</div>').join("")+'</div>';
+ }
+ document.getElementById("detail").innerHTML='<h2>'+x.icon+" "+t(x)+'</h2><div>'+body+'</div><hr><small>'+labels[lang].warning+'</small>';
+}
+document.getElementById("back").onclick=()=>{document.getElementById("panel").style.display="none";document.getElementById("grid").style.display="grid";current=null;};
+document.getElementById("bookmark").onclick=()=>{
+ if(!current)return;let a=JSON.parse(localStorage.getItem("noorBookmarks")||"[]");
+ if(a.includes(current.id))a=a.filter(v=>v!==current.id);else a.push(current.id);
+ localStorage.setItem("noorBookmarks",JSON.stringify(a));
+ document.getElementById("bookmark").textContent=a.includes(current.id)?labels[lang].marked:labels[lang].mark;
+};
+document.getElementById("lang").onchange=e=>{lang=e.target.value;render();};
+document.getElementById("search").oninput=render;
+render();
+</script>
+</body>
+</html>
