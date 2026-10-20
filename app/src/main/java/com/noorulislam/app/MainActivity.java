@@ -15,7 +15,10 @@ public class MainActivity extends Activity {
         WebSettings settings = view.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
-        view.setBackgroundColor(0xFFF4F7F2);
+settings.setAllowFileAccess(true);
+settings.setAllowFileAccessFromFileURLs(true);
+settings.setAllowUniversalAccessFromFileURLs(true);        
+view.setBackgroundColor(0xFFF4F7F2);
         setContentView(view);
         view.loadUrl("file:///android_asset/index.html");
     }

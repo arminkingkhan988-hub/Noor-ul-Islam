@@ -162,10 +162,82 @@ function openSection(x){
  document.getElementById("bookmark").textContent=saved.includes(x.id)?labels[lang].marked:labels[lang].mark;
  let body=t(x.body).replace(/\n/g,"<br>");
  if(x.id==="quran"){
-  body+='<h3>'+ (lang==="ps"?"د سورتونو نوملړ":lang==="ar"?"قائمة السور":"Surah list")+'</h3><div class="quranlist">'+surahs.map((s,i)=>'<div class="surah">'+(i+1)+". "+s+'</div>').join("")+'</div>';
+  body='<p>د قرآن کریم عربي متن او پښتو ژباړه</p><div id="surahPicker" class="quranlist">'+surahs.map((s,i)=>'<button type="button" class="surah" onclick="showSurah('+(i+1)+')">'+(i+1)+'. '+s+'</button>').join("")+'</div><div id="quranReader"></div>';
  }
  document.getElementById("detail").innerHTML='<h2>'+x.icon+" "+t(x)+'</h2><div>'+body+'</div><hr><small>'+labels[lang].warning+'</small>';
 }
+
+let quranData = null;
+
+async function showSurah(number) {
+  const reader = document.getElementById("quranReader");
+  const picker = document.getElementById("surahPicker");
+
+  if (!reader || !picker) return;
+
+  reader.innerHTML = "<p>مهرباني وکړئ، انتظار وکړئ...</p>";
+
+  try {
+    if (!quranData) {
+      const response = await fetch("data/quran.json");
+      if (!response.ok) throw new Error("د قرآن فایل ونه لوستل شو");
+      quranData = await response.json();
+    }
+
+    const surah = quranData.find(item => Number(item.sura) === number);
+    if (!surah) throw new Error("سورت پیدا نه شو");
+
+    picker.style.display = "none";
+
+    reader.innerHTML =
+      '<button type="button" onclick="backToSurahs()">← د سورتونو لېست</button>' +
+      '<h3 style="text-align:center">' + surah.sura + '. ' +
+      surah.name + '</h3>' +
+      surah.verses.map(v =>
+        '<article style="padding:14px;margin:10px 0;border-radius:12px;background:#fff;border:1px solid #dce8dc">' +
+        '<div style="text-align:center;font-size:25px;line-height:2.1;direction:rtl">' +
+        v.arabic + ' ۝ ' + v.aya + '</div>' +
+        '<div style="font-size:17px;line-height:2;text-align:right;margin-top:8px">' +
+        v.pashto + '</div>' +
+        '<button type="button" onclick="playAyah(' + surah.sura + ',' + v.aya + ')">🔊 تلاوت</button>' +
+        '</article>'
+      ).join("");
+  } catch (error) {
+    reader.innerHTML =
+      '<p>د قرآن معلومات لوستل ونه شول. مهرباني وکړئ، بیا هڅه وکړئ.</p>' +
+      '<button type="button" onclick="backToSurahs()">بېرته</button>';
+  }
+}
+
+function backToSurahs() {
+  const picker = document.getElementById("surahPicker");
+  const reader = document.getElementById("quranReader");
+  if (picker) picker.style.display = "grid";
+  if (reader) reader.innerHTML = "";
+let currentAudio = null;
+
+function playAyah(surah, ayah) {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio = null;
+  }
+
+  const s = String(surah).padStart(3, "0");
+  const a = String(ayah).padStart(3, "0");
+
+  const url =
+    "https://everyayah.com/data/Alafasy_128kbps/" + s + a + ".mp3";
+
+  currentAudio = new Audio(url);
+
+  currentAudio.play().catch(() => {
+    alert("د تلاوت غږ ونه چلېد. انټرنېټ وګوره او بیا هڅه وکړه.");
+  });
+}}
+
+  
+}
+
 document.getElementById("back").onclick=()=>{document.getElementById("panel").style.display="none";document.getElementById("grid").style.display="grid";current=null;};
 document.getElementById("bookmark").onclick=()=>{
  if(!current)return;let a=JSON.parse(localStorage.getItem("noorBookmarks")||"[]");
