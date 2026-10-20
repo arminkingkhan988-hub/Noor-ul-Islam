@@ -245,6 +245,7 @@ document.getElementById("bookmark").onclick=()=>{
  localStorage.setItem("noorBookmarks",JSON.stringify(a));
  document.getElementById("bookmark").textContent=a.includes(current.id)?labels[lang].marked:labels[lang].mark;
 };
+document.getElementById("search").addEventListener("input", render);
 document.getElementById("lang").onchange=e=>{lang=e.target.value;render();};
 document.getElementById("search").oninput=render;
 render();
