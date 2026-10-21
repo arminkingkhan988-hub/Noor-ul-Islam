@@ -214,6 +214,8 @@ function backToSurahs() {
   const reader = document.getElementById("quranReader");
   if (picker) picker.style.display = "grid";
   if (reader) reader.innerHTML = "";
+}
+
 let currentAudio = null;
 
 function playAyah(surah, ayah) {
@@ -224,18 +226,12 @@ function playAyah(surah, ayah) {
 
   const s = String(surah).padStart(3, "0");
   const a = String(ayah).padStart(3, "0");
-
-  const url =
-    "https://everyayah.com/data/Alafasy_128kbps/" + s + a + ".mp3";
+  const url = "https://everyayah.com/data/Alafasy_128kbps/" + s + a + ".mp3";
 
   currentAudio = new Audio(url);
-
   currentAudio.play().catch(() => {
     alert("د تلاوت غږ ونه چلېد. انټرنېټ وګوره او بیا هڅه وکړه.");
   });
-}}
-
-  
 }
 
 document.getElementById("back").onclick=()=>{document.getElementById("panel").style.display="none";document.getElementById("grid").style.display="grid";current=null;};
