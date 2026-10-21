@@ -247,6 +247,7 @@ async function showIslamicTopicsAgain() {
   await openIslamicLesson();
 }
 
+
 async function showIslamicTopic(index) {
   const reader = document.getElementById("islamicReader");
   const list = document.getElementById("islamicTopics");
@@ -261,21 +262,27 @@ async function showIslamicTopic(index) {
     }
 
     list.style.display = "none";
-
     reader.innerHTML = "";
 
     const back = document.createElement("button");
     back.type = "button";
+    back.className = "back";
     back.textContent = "← د موضوعاتو لېست";
     back.onclick = () => {
-      list.style.display = "grid";
+      list.style.display = "";
       reader.innerHTML = "";
+      window.scrollTo(0, 0);
     };
     reader.appendChild(back);
 
-    const heading = document.createElement("h3");
-    heading.textContent = topic.title;
+    const heading = document.createElement("h2");
+    heading.textContent = topic.title || "اسلامي درس";
     reader.appendChild(heading);
+
+    // د JSON اصلي جوړښت: sections، heading او text
+    const sections = Array.isArray(topic.sections)
+      ? topic.sections
+      : (Array.isArray(topic.lessons) ? topic.lessons : []);
 
     if (topic.description) {
       const description = document.createElement("p");
@@ -283,18 +290,29 @@ async function showIslamicTopic(index) {
       reader.appendChild(description);
     }
 
-    (topic.lessons || []).forEach(lesson => {
+    if (sections.length === 0) {
+      const message = document.createElement("p");
+      message.textContent = "په دې موضوع کې لا درسونه نشته.";
+      reader.appendChild(message);
+      return;
+    }
+
+    sections.forEach((section, i) => {
       const article = document.createElement("article");
       article.style.cssText =
-        "padding:14px;margin:12px 0;border-radius:12px;" +
-        "background:#fff;border:1px solid #dce8dc;line-height:2";
+        "padding:16px;margin:14px 0;border-radius:14px;" +
+        "background:#fff;border:1px solid #dce8dc;" +
+        "line-height:2.1;overflow-wrap:anywhere";
 
-      const title = document.createElement("h4");
-      title.textContent = lesson.title;
+      const title = document.createElement("h3");
+      title.textContent =
+        section.heading || section.title || ("درس " + (i + 1));
+      title.style.color = "#075b45";
 
       const text = document.createElement("p");
-      text.textContent = lesson.text;
+      text.textContent = section.text || "";
       text.style.whiteSpace = "pre-wrap";
+      text.style.lineHeight = "2.1";
 
       article.appendChild(title);
       article.appendChild(text);
@@ -302,13 +320,16 @@ async function showIslamicTopic(index) {
     });
 
     const note = document.createElement("p");
-    note.style.cssText = "font-size:13px;line-height:1.9;color:#555";
+    note.style.cssText = "font-size:13px;line-height:2;color:#666";
     note.textContent =
-      "یادونه: دا معلومات د زده کړې لپاره دي. د ځانګړي شرعي حکم لپاره له باوري عالم سره مشوره وکړئ.";
+      "یادونه: دا معلومات د زده کړې لپاره دي. د ځانګړو شرعي احکامو لپاره له باوري عالم سره مشوره وکړئ.";
     reader.appendChild(note);
 
+    window.scrollTo(0, 0);
+
   } catch (error) {
-    reader.textContent = "د درس د ښودلو پر مهال ستونزه پیدا شوه.";
+    console.error("Islamic lesson error:", error);
+    reader.textContent = "د درسونو په لوستلو کې ستونزه پیدا شوه.";
   }
 }
 
