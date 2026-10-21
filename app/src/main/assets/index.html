@@ -141,6 +141,24 @@ en:{intro:"Assalamu alaikum wa rahmatullahi wa barakatuh.\nA simple guide to lea
 };
 let lang="ps", current=null;
 function t(o){return o[lang]||o.ps}
+
+function addIslamicLessonsButton() {
+  const grid = document.getElementById("grid");
+  if (!grid || document.getElementById("islamicLessonsCard")) return;
+
+  const button = document.createElement("button");
+  button.id = "islamicLessonsCard";
+  button.className = "card";
+  button.type = "button";
+  button.innerHTML =
+    '<div class="icon">📚</div>' +
+    '<div class="title">اسلامي درسونه</div>' +
+    '<div class="desc">لمونځ، اودس، روژه، زکات، حج، دعاګانې او نور</div>';
+
+  button.onclick = openIslamicLesson;
+  grid.appendChild(button);
+}
+
 function render(){
  const q=document.getElementById("search").value.trim().toLocaleLowerCase();
  document.documentElement.lang=lang;document.documentElement.dir=lang==="en"?"ltr":"rtl";
@@ -153,6 +171,7 @@ function render(){
    b.onclick=()=>openSection(x);grid.appendChild(b);
  });
  document.getElementById("panel").style.display="none";
+ addIslamicLessonsButton();
 }
 function openSection(x){
  current=x;document.getElementById("grid").style.display="none";
@@ -165,6 +184,132 @@ function openSection(x){
   body='<p>د قرآن کریم عربي متن او پښتو ژباړه</p><div id="surahPicker" class="quranlist">'+surahs.map((s,i)=>'<button type="button" class="surah" onclick="showSurah('+(i+1)+')">'+(i+1)+'. '+s+'</button>').join("")+'</div><div id="quranReader"></div>';
  }
  document.getElementById("detail").innerHTML='<h2>'+x.icon+" "+t(x)+'</h2><div>'+body+'</div><hr><small>'+labels[lang].warning+'</small>';
+}
+
+
+// د اسلامي معلوماتو لوستل او ښودل
+let islamicData = null;
+
+async function loadIslamicData() {
+  if (islamicData) return islamicData;
+
+  const response = await fetch("data/islamic.json");
+  if (!response.ok) {
+    throw new Error("د اسلامي معلوماتو فایل ونه لوستل شو");
+  }
+
+  islamicData = await response.json();
+  return islamicData;
+}
+
+async function openIslamicLesson() {
+  const grid = document.getElementById("grid");
+  const panel = document.getElementById("panel");
+  const detail = document.getElementById("detail");
+
+  grid.style.display = "none";
+  panel.style.display = "block";
+  document.getElementById("back").textContent = labels[lang].back;
+  document.getElementById("bookmark").style.display = "none";
+
+  detail.innerHTML = "<h2>📚 اسلامي درسونه</h2><p>معلومات لوستل کېږي...</p>";
+
+  try {
+    const topics = await loadIslamicData();
+
+    detail.innerHTML =
+      '<h2>📚 اسلامي درسونه</h2>' +
+      '<p>د دیني زده کړې موضوع وټاکئ:</p>' +
+      '<div id="islamicTopics" class="quranlist"></div>' +
+      '<div id="islamicReader"></div>';
+
+    const list = document.getElementById("islamicTopics");
+
+    topics.forEach((topic, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "surah";
+      button.textContent = topic.title;
+      button.onclick = () => showIslamicTopic(index);
+      list.appendChild(button);
+    });
+
+  } catch (error) {
+    detail.innerHTML =
+      '<h2>📚 اسلامي درسونه</h2>' +
+      '<p>د معلوماتو فایل ونه لوستل شو.</p>' +
+      '<p>د فایل ځای باید دا وي: assets/data/islamic.json</p>' +
+      '<button type="button" onclick="showIslamicTopicsAgain()">بیا هڅه</button>';
+  }
+}
+
+async function showIslamicTopicsAgain() {
+  await openIslamicLesson();
+}
+
+async function showIslamicTopic(index) {
+  const reader = document.getElementById("islamicReader");
+  const list = document.getElementById("islamicTopics");
+
+  try {
+    const topics = await loadIslamicData();
+    const topic = topics[index];
+
+    if (!topic) {
+      reader.textContent = "موضوع پیدا نه شوه.";
+      return;
+    }
+
+    list.style.display = "none";
+
+    reader.innerHTML = "";
+
+    const back = document.createElement("button");
+    back.type = "button";
+    back.textContent = "← د موضوعاتو لېست";
+    back.onclick = () => {
+      list.style.display = "grid";
+      reader.innerHTML = "";
+    };
+    reader.appendChild(back);
+
+    const heading = document.createElement("h3");
+    heading.textContent = topic.title;
+    reader.appendChild(heading);
+
+    if (topic.description) {
+      const description = document.createElement("p");
+      description.textContent = topic.description;
+      reader.appendChild(description);
+    }
+
+    (topic.lessons || []).forEach(lesson => {
+      const article = document.createElement("article");
+      article.style.cssText =
+        "padding:14px;margin:12px 0;border-radius:12px;" +
+        "background:#fff;border:1px solid #dce8dc;line-height:2";
+
+      const title = document.createElement("h4");
+      title.textContent = lesson.title;
+
+      const text = document.createElement("p");
+      text.textContent = lesson.text;
+      text.style.whiteSpace = "pre-wrap";
+
+      article.appendChild(title);
+      article.appendChild(text);
+      reader.appendChild(article);
+    });
+
+    const note = document.createElement("p");
+    note.style.cssText = "font-size:13px;line-height:1.9;color:#555";
+    note.textContent =
+      "یادونه: دا معلومات د زده کړې لپاره دي. د ځانګړي شرعي حکم لپاره له باوري عالم سره مشوره وکړئ.";
+    reader.appendChild(note);
+
+  } catch (error) {
+    reader.textContent = "د درس د ښودلو پر مهال ستونزه پیدا شوه.";
+  }
 }
 
 let quranData = null;

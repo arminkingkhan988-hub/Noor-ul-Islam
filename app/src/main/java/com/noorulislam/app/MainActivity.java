@@ -2,55 +2,74 @@ package com.noorulislam.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.graphics.Color;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.util.Log;
+
+import androidx.webkit.WebViewAssetLoader;
 
 public class MainActivity extends Activity {
 
     private WebView view;
+    private WebViewAssetLoader assetLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         view = new WebView(this);
+        view.setBackgroundColor(Color.rgb(244, 247, 242));
 
         WebSettings settings = view.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
-        settings.setAllowFileAccess(true);
-        settings.setAllowContentAccess(true);
-        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        settings.setAllowFileAccess(false);
+        settings.setAllowContentAccess(false);
+        settings.setJavaScriptCanOpenWindowsAutomatically(false);
+        settings.setLoadsImagesAutomatically(true);
+        settings.setMixedContentMode(
+                WebSettings.MIXED_CONTENT_NEVER_ALLOW
+        );
+
+        assetLoader = new WebViewAssetLoader.Builder()
+                .addPathHandler(
+                        "/assets/",
+                        new WebViewAssetLoader.AssetsPathHandler(this)
+                )
+                .build();
 
         view.setWebViewClient(new WebViewClient() {
             @Override
-            public void onReceivedError(
+            public WebResourceResponse shouldInterceptRequest(
                     WebView webView,
-                    WebResourceRequest request,
-                    WebResourceError error) {
-                super.onReceivedError(webView, request, error);
-                Log.e("NoorIslam", "WebView error: " + error.getDescription());
+                    WebResourceRequest request) {
+
+                return assetLoader.shouldInterceptRequest(
+                        request.getUrl()
+                );
             }
         });
 
         view.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onConsoleMessage(ConsoleMessage message) {
-                Log.e("NoorIslam", message.message()
-                        + " | line: " + message.lineNumber());
+                Log.d("NoorIslam",
+                        message.message() +
+                        " | line: " + message.lineNumber());
                 return true;
             }
         });
 
-        view.setBackgroundColor(0xFFF4F7F2);
         setContentView(view);
-        view.loadUrl("file:///android_asset/index.html");
+        view.loadUrl(
+                "https://appassets.androidplatform.net/assets/index.html"
+        );
     }
 
     @Override
