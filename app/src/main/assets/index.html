@@ -2,706 +2,1748 @@
 <html lang="ps" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#075b45">
 <title>نورالاسلام | Noor-ul-Islam</title>
 
 <style>
-:root {
-  --green: #075b45;
-  --green2: #0b795a;
-  --bg: #f2f7f3;
-  --card: #ffffff;
-  --text: #17352a;
-  --muted: #687b71;
-  --border: #dce9df;
-  --gold: #c79b35;
-  --danger: #b42318;
+:root{
+ --green:#075b45;
+ --green2:#0b795a;
+ --bg:#f1f7f2;
+ --white:#fff;
+ --text:#18372b;
+ --muted:#66796f;
+ --border:#dce9df;
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, "Noto Naskh Arabic", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.9;
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,sans-serif;
+ line-height:1.9
 }
-button, input, textarea, select { font: inherit; }
-button { cursor: pointer; }
-header {
-  background: linear-gradient(135deg, var(--green), var(--green2));
-  color: white;
-  padding: 23px 16px 20px;
-  text-align: center;
-  border-radius: 0 0 24px 24px;
+header{
+ background:linear-gradient(135deg,var(--green),var(--green2));
+ color:white;
+ padding:25px 15px;
+ text-align:center;
+ border-radius:0 0 24px 24px
 }
-header h1 { margin: 0; font-size: 29px; }
-header p { margin: 4px 0 10px; }
-.badge {
-  display: inline-block;
-  border: 1px solid #ffffff70;
-  border-radius: 30px;
-  padding: 3px 12px;
-  font-size: 12px;
+header h1{margin:0;font-size:29px}
+header p{margin:5px}
+.badge{
+ border:1px solid #ffffff80;
+ padding:3px 12px;
+ border-radius:30px;
+ font-size:12px
 }
-.container { max-width: 850px; margin: auto; padding: 15px; }
-.searchbox {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 12px;
-  background: white;
-  outline-color: var(--green2);
-  margin-bottom: 13px;
+main{max-width:900px;margin:auto;padding:15px}
+input,select,button{font:inherit}
+input,select{
+ width:100%;
+ padding:12px;
+ border:1px solid var(--border);
+ border-radius:12px;
+ background:white;
+ margin-bottom:10px
 }
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 9px;
-  margin-bottom: 15px;
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px
 }
-.stat {
-  background: white;
-  padding: 10px 4px;
-  text-align: center;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  font-size: 12px;
+.card,.lesson{
+ background:white;
+ border:1px solid var(--border);
+ border-radius:14px;
+ padding:13px
 }
-.stat strong { display: block; font-size: 18px; color: var(--green); }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 11px;
+.card{
+ text-align:right;
+ color:var(--text);
+ cursor:pointer
 }
-.card {
-  border: 1px solid var(--border);
-  background: var(--card);
-  border-radius: 15px;
-  padding: 14px;
-  text-align: right;
-  color: var(--text);
-  min-width: 0;
+.card .icon{font-size:27px}
+.card h3{font-size:16px;margin:3px 0}
+.card p,.muted{font-size:13px;color:var(--muted)}
+.panel{
+ display:none;
+ background:white;
+ border:1px solid var(--border);
+ border-radius:15px;
+ padding:14px;
+ overflow-wrap:anywhere
 }
-.card:active { transform: scale(.99); }
-.icon { font-size: 27px; display: block; }
-.card h3 { margin: 3px 0; font-size: 16px; }
-.card p { margin: 0; font-size: 12px; color: var(--muted); }
-.section-title { font-size: 19px; margin: 18px 0 10px; }
-.panel {
-  display: none;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 17px;
-  padding: 16px;
-  overflow-wrap: anywhere;
+.lesson{margin:10px 0}
+.lesson h3{color:var(--green);margin-top:0}
+.btn{
+ border:0;
+ background:var(--green);
+ color:white;
+ border-radius:9px;
+ padding:8px 13px;
+ cursor:pointer
 }
-.panel h2 { color: var(--green); margin-top: 3px; }
-.panel h3 { color: var(--green); }
-.back {
-  border: 0;
-  background: var(--green);
-  color: white;
-  border-radius: 10px;
-  padding: 8px 15px;
-  margin-bottom: 12px;
+.secondary{background:#e4f1e8;color:var(--green)}
+.arabic{
+ font-family:serif;
+ font-size:25px;
+ line-height:2.1;
+ text-align:center
 }
-.item {
-  background: #f5faf6;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
-  margin: 10px 0;
+footer{
+ text-align:center;
+ padding:22px;
+ color:var(--muted);
+ font-size:12px
 }
-.item h3 { margin-top: 0; }
-.small { font-size: 13px; color: var(--muted); }
-.action {
-  border: 0;
-  background: var(--green);
-  color: white;
-  padding: 7px 12px;
-  border-radius: 9px;
-  margin: 4px 0;
-}
-.secondary { background: #e5f2e9; color: var(--green); }
-.error { color: var(--danger); }
-.arabic {
-  font-family: "Noto Naskh Arabic", serif;
-  font-size: 25px;
-  line-height: 2.1;
-  text-align: center;
-  direction: rtl;
-}
-footer {
-  text-align: center;
-  padding: 24px 10px;
-  font-size: 12px;
-  color: var(--muted);
-}
-.hidden { display: none !important; }
-@media (min-width: 600px) {
-  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media(min-width:600px){
+ .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 </style>
 </head>
 
 <body>
 <header>
-  <h1 id="appTitle">نورالاسلام</h1>
-  <p id="appSubtitle">د اسلامي زده کړو وړیا کتابتون</p>
-  <span class="badge">وړیا · بې اعلانونو · آفلاین</span>
+ <h1>نورالاسلام</h1>
+ <p>Noor-ul-Islam — د اسلامي زده کړو کتابتون</p>
+ <span class="badge">وړیا · بې اعلانونو · آفلاین</span>
 </header>
 
-<main class="container">
-  <select id="language" class="searchbox" aria-label="Language">
-    <option value="ps">پښتو</option>
-    <option value="ar">العربية</option>
-    <option value="en">English</option>
-  </select>
+<main>
+ <select id="language">
+  <option value="ps">پښتو</option>
+  <option value="ar">العربية</option>
+  <option value="en">English</option>
+ </select>
 
-  <input id="search" class="searchbox" type="search"
-         placeholder="لټون: اودس، لمونځ، روژه، قرآن..." />
+ <input id="search" placeholder="لټون: اودس، لمونځ، روژه، قرآن...">
 
-  <div class="stats">
-    <div class="stat"><strong id="topicCount">—</strong>اسلامي موضوعات</div>
-    <div class="stat"><strong>114</strong>سورتونه</div>
-    <div class="stat"><strong id="savedCount">0</strong>خوندي شوي</div>
-  </div>
-
-  <h2 class="section-title" id="homeHeading">د زده کړو برخې</h2>
+ <div id="home">
+  <h2>د اسلامي زده کړو برخې</h2>
   <div id="grid" class="grid"></div>
+ </div>
 
-  <section id="panel" class="panel">
-    <button class="back" id="backButton">← بېرته</button>
-    <div id="panelContent"></div>
-  </section>
+ <section id="panel" class="panel">
+  <button id="back" class="btn">← بېرته</button>
+  <div id="content"></div>
+ </section>
 
-  <p id="status" class="small" role="status"></p>
+ <p id="status" class="muted"></p>
 </main>
 
 <footer>
-  <div>نورالاسلام | Noor-ul-Islam</div>
-  <div>وړیا · بې اعلانونو · د آفلاین کار لپاره جوړ شوی</div>
-  <div>د دیني احکامو د کره‌والي لپاره له باوري عالم سره هم مشوره وکړئ.</div>
+ نورالاسلام — وړیا اسلامي کتابتون<br>
+ د دیني احکامو لپاره له باوري عالم سره مشوره وکړئ.
 </footer>
 
 <script>
 "use strict";
 
-const $ = id => document.getElementById(id);
+/*
+د اسلامي معلوماتو ډیټابیس.
+د دې برخې دوام به په دویمه برخه کې راځي.
+*/
 
-const translations = {
-  ps: {
-    title: "نورالاسلام",
-    subtitle: "د اسلامي زده کړو وړیا کتابتون",
-    search: "لټون: اودس، لمونځ، روژه، قرآن...",
-    heading: "د زده کړو برخې",
-    back: "← بېرته",
-    loading: "معلومات لوستل کېږي...",
-    dataError: "د اسلامي معلوماتو فایل ونه لوستل شو. د data/islamic.json فایل شتون او JSON جوړښت وګورئ.",
-    noResults: "د لټون نتیجه پیدا نه شوه.",
-    lessons: "اسلامي درسونه",
-    lessonsDesc: "د عقیدې، عبادت او اسلامي ژوند تفصیلي معلومات",
-    quran: "قرآن کریم",
-    quranDesc: "د سورتونو لېست او د آیتونو لوستل",
-    bookmarks: "خوندي شوي",
-    bookmarksDesc: "خپل خوښ درسونه دلته وګورئ",
-    saved: "خوندي کول",
-    remove: "له خوندي شوو څخه لرې کول",
-    noSaved: "تر اوسه مو څه نه دي خوندي کړي.",
-    noTopics: "په معلوماتو فایل کې موضوعات نشته.",
-    noSections: "د دې موضوع لپاره تفصیلي برخې نه دي موندل شوي.",
-    quranError: "د قرآن د معلوماتو فایل ونه لوستل شو.",
-    surahs: "د قرآن سورتونه",
-    topicCount: "اسلامي موضوعات",
-    savedCount: "خوندي شوي",
-    audioUnavailable: "د آډیو لپاره انټرنېټ ته اړتیا ده.",
-    readMore: "تفصیل",
-    home: "کور",
-    dataLoaded: "اسلامي معلومات ولوستل شول."
+const topics = [
+{
+ id:"faith",
+ icon:"☪️",
+ title:"عقیده او ایمان",
+ desc:"د اسلام او ایمان بنسټونه",
+ sections:[
+  {
+   title:"د اسلام پنځه بناوې",
+   text:"د اسلام پنځه بناوې شهادت، لمونځ، زکات، د رمضان روژه او د توان په صورت کې حج دي."
   },
-  ar: {
-    title: "نور الإسلام",
-    subtitle: "مكتبة مجانية للتعلم الإسلامي",
-    search: "بحث: الوضوء، الصلاة، الصيام، القرآن...",
-    heading: "أقسام التعلم",
-    back: "← رجوع",
-    loading: "جارٍ تحميل المعلومات...",
-    dataError: "تعذر تحميل ملف المعلومات الإسلامية. تحقق من data/islamic.json.",
-    noResults: "لم يتم العثور على نتائج.",
-    lessons: "الدروس الإسلامية",
-    lessonsDesc: "العقيدة والعبادات والحياة الإسلامية",
-    quran: "القرآن الكريم",
-    quranDesc: "قائمة السور وقراءة الآيات",
-    bookmarks: "المحفوظات",
-    bookmarksDesc: "اعرض الدروس المحفوظة",
-    saved: "حفظ",
-    remove: "إزالة من المحفوظات",
-    noSaved: "لا توجد عناصر محفوظة بعد.",
-    noTopics: "لا توجد موضوعات في ملف البيانات.",
-    noSections: "لا توجد تفاصيل لهذا الموضوع.",
-    quranError: "تعذر تحميل ملف بيانات القرآن.",
-    surahs: "سور القرآن",
-    topicCount: "الموضوعات",
-    savedCount: "المحفوظات",
-    audioUnavailable: "تشغيل الصوت يحتاج إلى الإنترنت.",
-    readMore: "التفاصيل",
-    home: "الرئيسية",
-    dataLoaded: "تم تحميل المعلومات."
+  {
+   title:"د ایمان شپږ ارکان",
+   text:"په الله، پرښتو، آسماني کتابونو، رسولانو، د آخرت پر ورځې او تقدیر ایمان راوړل د ایمان شپږ ارکان دي."
   },
-  en: {
-    title: "Noor-ul-Islam",
-    subtitle: "Free Islamic learning library",
-    search: "Search: Wudu, Salah, Fasting, Quran...",
-    heading: "Learning Sections",
-    back: "← Back",
-    loading: "Loading information...",
-    dataError: "Could not load Islamic data. Check data/islamic.json.",
-    noResults: "No results found.",
-    lessons: "Islamic Lessons",
-    lessonsDesc: "Detailed topics on faith, worship and Islamic life",
-    quran: "The Holy Quran",
-    quranDesc: "Surah list and verse reading",
-    bookmarks: "Bookmarks",
-    bookmarksDesc: "View your saved lessons",
-    saved: "Bookmark",
-    remove: "Remove bookmark",
-    noSaved: "You have not saved anything yet.",
-    noTopics: "No topics found in the data file.",
-    noSections: "No detailed sections were found for this topic.",
-    quranError: "Could not load the Quran data file.",
-    surahs: "Quran Surahs",
-    topicCount: "Islamic Topics",
-    savedCount: "Saved",
-    audioUnavailable: "Audio playback requires internet access.",
-    readMore: "Details",
-    home: "Home",
-    dataLoaded: "Islamic information loaded."
+  {
+   title:"توحید",
+   text:"توحید دا دی چې الله تعالی یو وبولو او عبادت یوازې هغه ته ځانګړی کړو."
   }
-};
+ ]
+},
+{
+ id:"wudu",
+ icon:"💧",
+ title:"اودس",
+ desc:"فرضونه، سنتونه او طریقه",
+ sections:[
+  {
+   title:"د حنفي فقهې څلور فرضونه",
+   text:"۱. مخ مینځل. ۲. دواړه لاسونه له څنګلو سره مینځل. ۳. د سر د څلورمې برخې مسح کول. ۴. دواړه پښې له بجلکو سره مینځل."
+  },
+  {
+   title:"د اودس طریقه",
+   text:"نیت وکړئ، لاسونه ومینځئ، خوله او پوزه ووینځئ، مخ او لاسونه تر څنګلو پورې ومینځئ، د سر مسح وکړئ او پښې تر بجلکو پورې ومینځئ."
+  },
+  {
+   title:"د اودس ماتوونکي",
+   text:"له مخکینیو یا شاتنیو لارو څخه د څه شي وتل، بې‌هوشي او ځینې نور حالتونه اودس ماتوي. د ځینو مواردو تفصیل په فقهي کتابونو کې شته."
+  }
+ ]
+},
+{
+ id:"ghusl",
+ icon:"🚿",
+ title:"غسل",
+ desc:"د غسل فرضونه او طریقه",
+ sections:[
+  {
+   title:"د حنفي فقهې درې فرضونه",
+   text:"۱. خوله مینځل. ۲. پوزې ته اوبه رسول. ۳. ټول بدن مینځل، داسې چې هېڅ برخه وچه پاتې نه شي."
+  },
+  {
+   title:"د غسل طریقه",
+   text:"نیت وکړئ، ناپاکي لرې کړئ، اودس وکړئ او ټول بدن په بشپړ ډول ومینځئ."
+  },
+  {
+   title:"د غسل اړتیا",
+   text:"جنابت، د حیض پای او د نفاس پای د غسل له مهمو سببونو څخه دي."
+  }
+ ]
+},
+{
+ id:"tayammum",
+ icon:"🌱",
+ title:"تیمم",
+ desc:"د تیمم شرایط او طریقه",
+ sections:[
+  {
+   title:"تیمم څه وخت کېږي؟",
+   text:"د اوبو د نشتوالي یا د اوبو د استعمال د معتبر شرعي عذر په صورت کې د شرایطو له پوره کېدو سره تیمم کېدای شي."
+  },
+  {
+   title:"د تیمم طریقه",
+   text:"د تیمم لپاره نیت او د مخ او لاسونو مسح کول اړین دي. د حنفي فقهې دقیق تفصیل له معتبر فقهي کتاب څخه زده کړئ."
+  }
+ ]
+},
+{
+ id:"prayer",
+ icon:"🕌",
+ title:"لمونځ",
+ desc:"پنځه وخته لمونځ او رکعتونه",
+ sections:[
+  {
+   title:"د فرض رکعتونو شمېر",
+   text:"سهار: ۲ فرض؛ ماسپښین: ۴ فرض؛ مازدیګر: ۴ فرض؛ ماښام: ۳ فرض؛ ماخوستن: ۴ فرض."
+  },
+  {
+   title:"د لمانځه شرطونه",
+   text:"طهارت، د بدن او لباس پاکوالی، د عورت پټول، د قبلې استقبال او د لمانځه د وخت داخلېدل له مهمو شرطونو څخه دي."
+  },
+  {
+   title:"د لمانځه طریقه",
+   text:"نیت وکړئ، تکبیر تحریمه ووایئ، قیام او قرائت وکړئ، رکوع او سجدې په اطمینان ادا کړئ او د ټاکلو رکعتونو له بشپړولو وروسته سلام وګرځوئ."
+  },
+  {
+   title:"وتر",
+   text:"د حنفي فقهې له مخې د ماخوستن له لمانځه وروسته درې رکعته وتر واجب دي."
+  }
+ ]
+},
+{
+ id:"fasting",
+ icon:"🌙",
+ title:"روژه",
+ desc:"د رمضان د روژې احکام",
+ sections:[
+  {
+   title:"د روژې فرضیت",
+   text:"د رمضان روژه د بالغ، عاقل او له شرعي عذر څخه د خلاص مسلمان لپاره فرض ده."
+  },
+  {
+   title:"د روژې اخلاق",
+   text:"د روژې پر مهال له دروغو، غیبت، ښکنځلو او ظلم څخه ځان وساتئ."
+  },
+  {
+   title:"قضا او کفاره",
+   text:"د روژې د پرېښودلو یا ماتولو حکم د سبب او شرایطو له مخې توپیر لري؛ د خپل حالت په اړه له باوري عالم څخه پوښتنه وکړئ."
+  }
+ ]
+},
+{
+ id:"zakat",
+ icon:"💰",
+ title:"زکات",
+ desc:"نصاب او مستحق کسان",
+ sections:[
+  {
+   title:"د زکات مقصد",
+   text:"زکات د مال ټاکلې برخه ده چې د شرعي شرایطو په پوره کېدو سره مستحقو کسانو ته ورکول کېږي."
+  },
+  {
+   title:"د زکات اندازه",
+   text:"په ډېرو عامو نغدي او سوداګریزو مالونو کې د حنفي فقهې له مخې ۲.۵ سلنه د زکات مشهوره اندازه ده، خو د مال ډول او شرایط باید وکتل شي."
+  },
+  {
+   title:"د زکات مستحقین",
+   text:"د توبې سورت ۶۰ آیت د زکات مستحقې ډلې بیانوي. د هرې ډلې د عملي حکم لپاره معتبر فقهي لارښود وګورئ."
+  }
+ ]
+},
+{
+ id:"hajj",
+ icon:"🕋",
+ title:"حج او عمره",
+ desc:"د حج او عمرې بنسټیز معلومات",
+ sections:[
+  {
+   title:"د حج فرضیت",
+   text:"حج د هغه مسلمان لپاره په ژوند کې یو ځل فرض دی چې مالي او بدني توان او نور شرعي شرایط ولري."
+  },
+  {
+   title:"د حج اعمال",
+   text:"احرام، وقوف عرفات، طواف، سعي او نور اعمال د حج د ډول او شرعي ترتیب له مخې ترسره کېږي."
+  },
+  {
+   title:"عمره",
+   text:"عمره عموماً احرام، طواف، سعي او د ویښتانو کمولو یا خریلو په اعمالو ترسره کېږي."
+  }
+ ]
+},
+{
+ id:"dua",
+ icon:"🤲",
+ title:"دعاګانې او اذکار",
+ desc:"قرآني دعاګانې او ورځني اذکار",
+ sections:[
+  {
+   title:"د علم دعا",
+   text:"رَبِّ زِدْنِي عِلْمًا — اې زما ربه! زما علم زیات کړه. (طه ۲۰:۱۱۴)"
+  },
+  {
+   title:"د دنیا او آخرت خیر",
+   text:"رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ — البقرة ۲:۲۰۱"
+  },
+  {
+   title:"استغفار",
+   text:"أَسْتَغْفِرُ اللَّهَ — له الله تعالی څخه بښنه غواړم."
+  },
+  {
+   title:"درود شریف",
+   text:"اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ"
+  }
+ ]
+},
+{
+ id:"ethics",
+ icon:"❤️",
+ title:"اسلامي اخلاق",
+ desc:"ښه چلند او د خلکو حقوق",
+ sections:[
+  {
+   title:"رښتینولي",
+   text:"رښتیا ویل، امانت ساتل او له دوکې څخه ځان ساتل د مسلمان مهم اخلاق دي."
+  },
+  {
+   title:"د مور او پلار حقوق",
+   text:"له مور او پلار سره په ادب او مهربانۍ چلند وکړئ او د هغوی خدمت وکړئ."
+  },
+  {
+   title:"د ګاونډي حقوق",
+   text:"ګاونډی مه ځوروئ او د اړتیا پر مهال مرسته ورسره وکړئ."
+  },
+  {
+   title:"غیبت او تهمت",
+   text:"له غیبت، دروغو او ناحقه تور لګولو څخه ځان وساتئ."
+  }
+ ]
+},
+{
+ id:"family",
+ icon:"👨‍👩‍👧",
+ title:"کورنۍ او ټولنیز ژوند",
+ desc:"د کورنۍ او ټولنې حقوق",
+ sections:[
+  {
+   title:"د کورنۍ مسؤلیت",
+   text:"په کورنۍ کې د یو بل عزت، حقوق، محرمیت او مسؤلیتونه مراعات کړئ."
+  },
+  {
+   title:"د اولادونو روزنه",
+   text:"ماشومانو ته ادب، رښتینولي، پاکوالی، عبادت او د خلکو د حقونو درناوی ورزده کړئ."
+  },
+  {
+   title:"میراث",
+   text:"د میراث برخې د قرآن او سنتو له مخې ټاکل کېږي. د عملي وېش لپاره متخصص عالم ته مراجعه وکړئ."
+  }
+ ]
+},
+{
+ id:"knowledge",
+ icon:"🎓",
+ title:"د علم فضیلت",
+ desc:"د ګټور علم زده کړه",
+ sections:[
+  {
+   title:"د علم زده کړه",
+   text:"دیني علم له باوري استاد او معتبر کتاب څخه زده کړئ."
+  },
+  {
+   title:"د معلوماتو کره‌والی",
+   text:"د حدیث او دیني مسئلې د خپرولو مخکې یې سرچینه او کره‌والی وګورئ."
+  }
+ ]
+}
+];
 
-let lang = localStorage.getItem("noorLanguage") || "ps";
-let islamicData = null;
-let quranData = null;
+/* دویمه برخه باید له همدې ځایه ادامه ومومي. *//* ================================
+   د نورالاسلام اپلیکیشن دویمه برخه
+   ================================ */
+
+const quranData = [
+  {
+    name: "سورة الفاتحة",
+    arabic: [
+      "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+      "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+      "الرَّحْمَٰنِ الرَّحِيمِ",
+      "مَالِكِ يَوْمِ الدِّينِ",
+      "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+      "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
+      "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ"
+    ],
+    translation: [
+      "د الله په نوم چې ډېر مهربان، زیات رحم کوونکی دی.",
+      "ټولې ستاینې د الله لپاره دي چې د ټولو جهانونو پالونکی دی.",
+      "ډېر مهربان، زیات رحم کوونکی دی.",
+      "د جزا د ورځې مالک دی.",
+      "یوازې ستا عبادت کوو او یوازې له تا مرسته غواړو.",
+      "موږ ته سمه لار وښیه.",
+      "د هغو کسانو لار چې تا پرې نعمت کړی؛ نه د هغو چې غضب پرې شوی او نه د لارورکو."
+    ]
+  },
+  {
+    name: "سورة الإخلاص",
+    arabic: [
+      "قُلْ هُوَ اللَّهُ أَحَدٌ",
+      "اللَّهُ الصَّمَدُ",
+      "لَمْ يَلِدْ وَلَمْ يُولَدْ",
+      "وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ"
+    ],
+    translation: [
+      "ووایه: هغه الله یو دی.",
+      "الله بې‌نیازه دی او ټول ورته اړ دي.",
+      "نه یې څوک زېږولي او نه دی زېږول شوی.",
+      "او هېڅوک د هغه سیال نشته."
+    ]
+  },
+  {
+    name: "سورة الفلق",
+    arabic: [
+      "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
+      "مِنْ شَرِّ مَا خَلَقَ",
+      "وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ",
+      "وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ",
+      "وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ"
+    ],
+    translation: [
+      "ووایه: د سهار د رڼا له پالونکي پناه غواړم.",
+      "د هغه څه له شره چې پیدا کړي یې دي.",
+      "او د شپې له شره کله چې تیاره شي.",
+      "او د هغو له شره چې په غوټو کې پوکی وهي.",
+      "او د حسد کوونکي له شره کله چې حسد کوي."
+    ]
+  },
+  {
+    name: "سورة الناس",
+    arabic: [
+      "قُلْ أَعُوذُ بِرَبِّ النَّاسِ",
+      "مَلِكِ النَّاسِ",
+      "إِلَٰهِ النَّاسِ",
+      "مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ",
+      "الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ",
+      "مِنَ الْجِنَّةِ وَالنَّاسِ"
+    ],
+    translation: [
+      "ووایه: د خلکو له پالونکي پناه غواړم.",
+      "د خلکو له پاچا څخه.",
+      "د خلکو له معبود څخه.",
+      "د پټېدونکي وسوسه اچوونکي له شره.",
+      "هغه چې د خلکو په سینو کې وسوسې اچوي.",
+      "له پېریانو او انسانانو څخه."
+    ]
+  }
+];
+
+const app = document.getElementById("app");
+const searchInput = document.getElementById("search");
+
 let currentView = "home";
 let currentTopic = null;
-let currentSurah = null;
+let currentLanguage = "ps";
 
-function t(key) {
-  return (translations[lang] && translations[lang][key]) ||
-         translations.ps[key] || key;
-}
-
-function safeString(value) {
-  if (value === null || value === undefined) return "";
-  if (typeof value === "string" || typeof value === "number") {
-    return String(value);
+const extraTopics = [
+  {
+    id: "iman",
+    title: "د ایمان بنسټونه",
+    icon: "☪️",
+    description: "د ایمان شپږ بنسټونه او د مسلمان عقیده.",
+    sections: [
+      {
+        heading: "ایمان څه شی دی؟",
+        text: "ایمان د الله تعالی پر شتون او یووالي، د هغه پر فرښتو، کتابونو، پیغمبرانو، د آخرت پر ورځې او تقدیر باور ته ویل کېږي. د ایمان تفصیلي بیان باید د معتبر اسلامي علم له مخې زده شي."
+      },
+      {
+        heading: "د ایمان شپږ بنسټونه",
+        text: "۱. پر الله تعالی ایمان.\n۲. پر ملائکو ایمان.\n۳. پر آسماني کتابونو ایمان.\n۴. پر پیغمبرانو ایمان.\n۵. د آخرت پر ورځې ایمان.\n۶. پر تقدیر ایمان، د خیر او شر په اړه د الله تعالی په علم او اراده باور."
+      },
+      {
+        heading: "د توحید اهمیت",
+        text: "توحید دا دی چې الله تعالی یو وګڼل شي، عبادت یوازې د هغه لپاره وشي او له هغه سره څوک شریک ونه ګرځول شي. مسلمان باید د قرآن کریم او صحیح سنتو له مخې خپله عقیده زده کړي."
+      }
+    ]
+  },
+  {
+    id: "wudu",
+    title: "اودس",
+    icon: "💧",
+    description: "د اودس فرضونه، سنتونه او طریقه.",
+    sections: [
+      {
+        heading: "د حنفي فقهې له مخې د اودس څلور فرضونه",
+        text: "۱. د ټول مخ مینځل.\n۲. د دواړو لاسونو له څنګلو سره مینځل.\n۳. د سر د څلورمې برخې مسح کول.\n۴. د دواړو پښو له بجلکو سره مینځل."
+      },
+      {
+        heading: "د اودس طریقه",
+        text: "نیت وکړئ، بسم الله ووایئ، لاسونه ومینځئ، خوله او پوزه پاکه کړئ، مخ ومینځئ، لاسونه له څنګلو سره ومینځئ، د سر مسح وکړئ، غوږونه مسح کړئ او پښې له بجلکو سره ومینځئ. د سنتونو او مستحباتو تفصیل له باوري حنفي عالم څخه زده کړئ."
+      },
+      {
+        heading: "د اودس ماتېدونکي شیان",
+        text: "د حنفي فقهې له مخې د مخکیني یا شاتني مخرج څخه د څه وتل، د وینې یا زوو بهېدل، د خولې ډکه کانګې، داسې خوب چې د بدن کنټرول له منځه یوسي، او بې‌هوښي د اودس د ماتېدو له مهمو سببونو څخه دي. په ځینو جزئیاتو کې تفصیل شته."
+      }
+    ]
+  },
+  {
+    id: "ghusl",
+    title: "غسل",
+    icon: "🚿",
+    description: "د غسل فرضونه او سمه طریقه.",
+    sections: [
+      {
+        heading: "د حنفي فقهې له مخې د غسل درې فرضونه",
+        text: "۱. د خولې ښه پرېمنځل.\n۲. پوزې ته د اوبو رسول.\n۳. د ټول بدن هرې برخې ته اوبه رسول، داسې چې د بدن هېڅ برخه وچه پاتې نه شي."
+      },
+      {
+        heading: "د غسل طریقه",
+        text: "نیت وکړئ، لاسونه ومینځئ، که پر بدن ناپاکي وي لرې یې کړئ، اودس وکړئ، بیا پر سر او ټول بدن اوبه واچوئ. پام وکړئ چې د بدن هېڅ ځای وچ پاتې نه شي. د غسل د واجب کېدو ځانګړي حالتونه له معتبر فقهي کتاب یا عالم څخه زده کړئ."
+      }
+    ]
+  },
+  {
+    id: "tayammum",
+    title: "تیمم",
+    icon: "🌿",
+    description: "د اوبو د نه‌شتون یا شرعي عذر په حالت کې تیمم.",
+    sections: [
+      {
+        heading: "تیمم څه وخت کېږي؟",
+        text: "کله چې اوبه نه وي موندل کېدای، یا د اوبو استعمال د معتبر شرعي عذر له امله زیانمن وي، د شرعي شرایطو په پوره کېدو سره تیمم کېدای شي."
+      },
+      {
+        heading: "د حنفي فقهې له مخې د تیمم فرضونه",
+        text: "۱. نیت کول.\n۲. د ټول مخ مسح کول.\n۳. د دواړو لاسونو مسح کول تر څنګلو پورې."
+      },
+      {
+        heading: "مهمه یادونه",
+        text: "د تیمم لپاره د پاکې ځمکنۍ مادې، د تیمم ماتوونکو شیانو او د عذر د پای ته رسېدو احکام تفصیل لري. د خپل حالت مطابق له باوري عالم څخه پوښتنه وکړئ."
+      }
+    ]
+  },
+  {
+    id: "prayer",
+    title: "لمونځ",
+    icon: "🕌",
+    description: "د پنځه وخته لمونځونو رکعتونه او د لمانځه اهمیت.",
+    sections: [
+      {
+        heading: "پنځه وخته لمونځونه",
+        text: "فجر: ۲ سنت مؤکد او ۲ فرض.\nظهر: ۴ سنت مؤکد، ۴ فرض، ۲ سنت مؤکد؛ وروسته نور نفل هم کېدای شي.\nعصر: ۴ سنت غیر مؤکد او ۴ فرض.\nمغرب: ۳ فرض او ۲ سنت مؤکد.\nعشاء: ۴ سنت غیر مؤکد، ۴ فرض، ۲ سنت مؤکد، ۳ وتر؛ وروسته نفل هم کېدای شي.\nدا د حنفي فقهې له مخې عام ترتیب دی؛ د سنتونو او نفلونو په شمېر او ترتیب کې تفصیل زده کړئ."
+      },
+      {
+        heading: "د لمانځه شرطونه",
+        text: "د بدن، جامو او ځای پاکوالی، د عورت پټول، د لمانځه وخت داخلېدل، قبلې ته مخ کول او نیت کول د لمانځه له مهمو شرطونو څخه دي. د شرطونو او فرضونو تفصیلي احکام باید په سمه توګه زده شي."
+      },
+      {
+        heading: "د لمانځه عمومي طریقه",
+        text: "د لمانځه نیت وکړئ، تکبیر تحریمه ووایئ، قیام وکړئ او قرائت ولولئ، رکوع ته لاړ شئ، بېرته ودرېږئ، سجده وکړئ، کښېنئ او دویمه سجده وکړئ. د رکعتونو، تشهد، درود، دعا او سلام تفصیل د خپل فقهي مذهب له مخې زده کړئ."
+      },
+      {
+        heading: "د لمانځه ارزښت",
+        text: "لمونځ د اسلام له مهمو عبادتونو څخه دی. مسلمان باید پنځه وخته لمونځونه پر وخت ادا کړي، د لمانځه معناوې زده کړي او په خشوع او اخلاص سره یې ترسره کړي."
+      }
+    ]
+  },
+  {
+    id: "fasting",
+    title: "روژه",
+    icon: "🌙",
+    description: "د رمضان روژه، نیت او مهم احکام.",
+    sections: [
+      {
+        heading: "روژه څه ده؟",
+        text: "روژه د الله تعالی د عبادت لپاره له سهار صادق څخه تر لمر لوېدو پورې د خوراک، څښاک او هغو کارونو څخه ځان ساتل دي چې روژه ماتوي، د شرعي شرایطو په رعایت سره."
+      },
+      {
+        heading: "د روژې آداب",
+        text: "سحري کول، په وخت افطار کول، د قرآن کریم تلاوت، دعا، صدقه، د ژبې ساتنه او له بدو خبرو او عملونو څخه ځان ژغورل د روژې له مهمو آدابو څخه دي."
+      },
+      {
+        heading: "روژه ماتونکي او عذرونه",
+        text: "د روژې ماتونکو کارونو او د ناروغۍ، سفر، حیض او نورو عذرونو احکام تفصیل لري. د هر حالت لپاره د باوري عالم لارښوونه واخلئ؛ ځکه قضا، کفاره او نور احکام د حالت له مخې توپیر کولی شي."
+      }
+    ]
+  },
+  {
+    id: "zakat",
+    title: "زکات",
+    icon: "🤲",
+    description: "د زکات اهمیت او د مستحقو کسانو پېژندنه.",
+    sections: [
+      {
+        heading: "زکات څه دی؟",
+        text: "زکات د اسلام له مهمو مالي عبادتونو څخه دی. د ځانګړو شرایطو له پوره کېدو وروسته د ټاکلې شتمنۍ ټاکلې برخه مستحقو کسانو ته ورکول کېږي."
+      },
+      {
+        heading: "د زکات نصاب",
+        text: "نصاب د شتمنۍ له ډول، سرو زرو، سپینو زرو، پیسو او نورو مالونو سره تړاو لري. د کال، پورونو او د شتمنۍ د حساب جزئیات هم مهم دي؛ نو د خپل مال دقیق حساب له باوري عالم سره وکړئ."
+      },
+      {
+        heading: "د زکات مستحقین",
+        text: "قرآن کریم د زکات مستحقې ډلې بیان کړې دي؛ په هغو کې بېوزلي، مسکینان، د زکات کارکوونکي او نورې ټاکلې ډلې شاملې دي. د هر شخص د مستحق‌والي شرایط باید وڅېړل شي."
+      }
+    ]
+  },
+  {
+    id: "hajj",
+    title: "حج او عمره",
+    icon: "🕋",
+    description: "د حج او عمرې پېژندنه.",
+    sections: [
+      {
+        heading: "حج",
+        text: "حج د ځانګړو ورځو په اوږدو کې په مکه مکرمه او اړوندو سپېڅلو ځایونو کې ځانګړي عبادتونه ترسره کول دي. پر هغه مسلمان فرض کېږي چې د حج شرعي شرایط ولري او د توان خاوند وي."
+      },
+      {
+        heading: "د حج مهم اعمال",
+        text: "احرام، وقوف عرفات، طواف، سعي او نور اعمال د حج له مهمو مناسکو څخه دي. د هر عمل وخت، واجبات او ممنوعات تفصیل لري."
+      },
+      {
+        heading: "عمره",
+        text: "عمره د احرام، طواف، سعي او د وېښتانو د خریلو یا لنډولو له اعمالو سره ترسره کېږي. د سفر مخکې د معتبرې لارښوونې او مناسکو زده کړه مهمه ده."
+      }
+    ]
+  },
+  {
+    id: "dua",
+    title: "دعاوې او اذکار",
+    icon: "📿",
+    description: "د ورځني ژوند ځینې دعاوې او اذکار.",
+    sections: [
+      {
+        heading: "د خوراک مخکې",
+        text: "بِسْمِ اللَّهِ\nمعنا: د الله په نوم."
+      },
+      {
+        heading: "د خوراک وروسته",
+        text: "الْحَمْدُ لِلَّهِ\nمعنا: ټولې ستاینې د الله لپاره دي."
+      },
+      {
+        heading: "د علم دعا",
+        text: "رَبِّ زِدْنِي عِلْمًا\nمعنا: اې زما ربه! زما علم زیات کړه."
+      },
+      {
+        heading: "د مور او پلار دعا",
+        text: "رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا\nمعنا: اې زما ربه! پر هغوی رحم وکړه، لکه څنګه چې هغوی زه په کوچنیوالي کې روزلی وم."
+      },
+      {
+        heading: "د سهار او ماښام اذکار",
+        text: "د سهار او ماښام اذکار د مسلمان د ورځني عبادت مهمه برخه ده. د آیت الکرسي، سورة الإخلاص، سورة الفلق، سورة الناس او له صحیح سنتو ثابتو اذکارو تلاوت زده کړئ."
+      }
+    ]
+  },
+  {
+    id: "ethics",
+    title: "اسلامي اخلاق",
+    icon: "💚",
+    description: "رښتینولي، امانت، صبر او ښه چلند.",
+    sections: [
+      {
+        heading: "رښتینولي",
+        text: "مسلمان باید رښتیا ووایي، له دروغو ځان وساتي او د خلکو باور ته درناوی وکړي."
+      },
+      {
+        heading: "امانت او ژمنه",
+        text: "د خلکو امانتونه وساتئ، ژمنې پوره کړئ او د نورو حقونه مه ضایع کوئ."
+      },
+      {
+        heading: "د ژبې ساتنه",
+        text: "له غیبت، بدو خبرو، سپکاوي، دروغو او بې‌ځایه شخړو څخه ځان وساتئ. ښه خبره وکړئ یا چوپ پاتې شئ."
+      },
+      {
+        heading: "له ګاونډیانو سره ښه چلند",
+        text: "ګاونډیانو ته زیان مه رسوئ، د هغوی حقونه مراعت کړئ او د اړتیا پر وخت مرسته ورسره وکړئ."
+      }
+    ]
+  },
+  {
+    id: "family",
+    title: "کورنۍ او ټولنه",
+    icon: "👨‍👩‍👧‍👦",
+    description: "د مور او پلار، خپلوانو او ګاونډیانو حقونه.",
+    sections: [
+      {
+        heading: "د مور او پلار حقونه",
+        text: "له مور او پلار سره په ادب او مهربانۍ چلند وکړئ، د هغوی خدمت وکړئ او په روا چارو کې یې اطاعت وکړئ. په ګناه کې د هېچا اطاعت نه کېږي، خو ښه چلند باید وساتل شي."
+      },
+      {
+        heading: "د خپلوانو پالنه",
+        text: "له خپلوانو سره اړیکې وساتئ، پوښتنه یې وکړئ او د توان مطابق مرسته ورسره وکړئ."
+      },
+      {
+        heading: "د ماشومانو روزنه",
+        text: "ماشومان په مینه، عدالت، ښه اخلاقو او علم وروزئ. هغوی ته د عبادت، امانت، پاکوالي او د خلکو د حقونو درناوی ورزده کړئ."
+      }
+    ]
+  },
+  {
+    id: "knowledge",
+    title: "د علم اهمیت",
+    icon: "📚",
+    description: "د ګټور علم زده کړه او د قرآن او سنتو پیروي.",
+    sections: [
+      {
+        heading: "علم ولې مهم دی؟",
+        text: "ګټور علم انسان ته د عبادت، اخلاقو او د خلکو د حقونو د سمې پېژندنې لار ښيي. مسلمان باید د دین اړین علم زده کړي او له باوري سرچینو ګټه واخلي."
+      },
+      {
+        heading: "د علم آداب",
+        text: "اخلاص، تواضع، پوښتنه، د استاد احترام، د زده‌کړې دوام او پر ګټور علم عمل کول د علم له مهمو آدابو څخه دي."
+      },
+      {
+        heading: "د دیني معلوماتو د ارزونې لار",
+        text: "هره خپره شوې دیني خبره بې له پلټنې مه منئ. د قرآن کریم، صحیح حدیث او د باوري علماوو له تشریحاتو څخه استفاده وکړئ."
+      }
+    ]
   }
-  return "";
+];
+
+/* که په لومړۍ برخه کې topics موجود وي، تکراري موضوعات یو ځای کړه. */
+const allTopics = [...topics];
+
+for (const item of extraTopics) {
+  if (!allTopics.some(t => t.id === item.id)) {
+    allTopics.push(item);
+  }
 }
 
 function escapeHTML(value) {
-  return safeString(value).replace(/[&<>"']/g, ch => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[ch]);
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
-function pickText(value) {
-  if (typeof value === "string" || typeof value === "number") {
-    return String(value);
-  }
-  if (!value || typeof value !== "object") return "";
-  return value[lang] || value.ps || value.ar || value.en ||
-         value.text || value.title || value.name || "";
-}
-
-function setStatus(message, isError = false) {
-  $("status").textContent = message || "";
-  $("status").className = isError ? "small error" : "small";
-}
-
-function setLanguage() {
-  lang = $("language").value;
-  localStorage.setItem("noorLanguage", lang);
-
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
-  $("appTitle").textContent = t("title");
-  $("appSubtitle").textContent = t("subtitle");
-  $("search").placeholder = t("search");
-  $("homeHeading").textContent = t("heading");
-  $("backButton").textContent = t("back");
-  $("savedCount").textContent = getBookmarks().length;
-
-  renderHome();
-
-  if (currentView === "topic" && currentTopic !== null) {
-    showIslamicTopic(currentTopic);
-  } else if (currentView === "quran") {
-    renderQuran();
-  } else if (currentView === "surah" && currentSurah !== null) {
-    showSurah(currentSurah);
-  } else if (currentView === "bookmarks") {
-    showBookmarks();
-  }
-}
-
-function getBookmarks() {
+function getSavedBookmarks() {
   try {
-    const result = JSON.parse(localStorage.getItem("noorBookmarks") || "[]");
-    return Array.isArray(result) ? result : [];
-  } catch (_) {
+    return JSON.parse(localStorage.getItem("noorBookmarks") || "[]");
+  } catch (error) {
     return [];
   }
 }
 
-function saveBookmarks(list) {
-  localStorage.setItem("noorBookmarks", JSON.stringify(list));
-  $("savedCount").textContent = list.length;
-}
+function saveBookmark(id) {
+  const saved = getSavedBookmarks();
+  const index = saved.indexOf(id);
 
-function isBookmarked(id) {
-  return getBookmarks().some(item => item.id === id);
-}
-
-function toggleBookmark(id, title, text) {
-  let list = getBookmarks();
-  if (list.some(item => item.id === id)) {
-    list = list.filter(item => item.id !== id);
+  if (index >= 0) {
+    saved.splice(index, 1);
   } else {
-    list.push({ id, title, text });
-  }
-  saveBookmarks(list);
-
-  if (currentView === "topic" && currentTopic !== null) {
-    showIslamicTopic(currentTopic);
-  } else if (currentView === "bookmarks") {
-    showBookmarks();
-  }
-  renderHome();
-}
-
-async function loadIslamicData() {
-  if (islamicData) return islamicData;
-
-  // MainActivity loads index.html from /assets/index.html.
-  // This URL resolves to /assets/data/islamic.json.
-  const response = await fetch("data/islamic.json");
-
-  if (!response.ok) {
-    throw new Error("islamic.json HTTP " + response.status);
+    saved.push(id);
   }
 
-  const data = await response.json();
-
-  if (Array.isArray(data)) {
-    islamicData = data;
-  } else if (data && Array.isArray(data.topics)) {
-    islamicData = data.topics;
-  } else if (data && Array.isArray(data.sections)) {
-    islamicData = data.sections;
-  } else {
-    throw new Error("Unexpected Islamic JSON structure");
-  }
-
-  $("topicCount").textContent = islamicData.length;
-  return islamicData;
+  localStorage.setItem("noorBookmarks", JSON.stringify(saved));
+  render();
 }
 
-async function loadQuranData() {
-  if (quranData) return quranData;
+function topicCard(topic) {
+  const saved = getSavedBookmarks().includes(topic.id);
 
-  const response = await fetch("data/quran.json");
-
-  if (!response.ok) {
-    throw new Error("quran.json HTTP " + response.status);
-  }
-
-  const data = await response.json();
-
-  if (Array.isArray(data)) {
-    quranData = data;
-  } else if (data && Array.isArray(data.surahs)) {
-    quranData = data.surahs;
-  } else if (data && Array.isArray(data.data)) {
-    quranData = data.data;
-  } else {
-    throw new Error("Unexpected Quran JSON structure");
-  }
-
-  return quranData;
-}
-
-function getTopicTitle(topic) {
-  return pickText(topic.title || topic.name || topic.heading ||
-                  topic.title_ps || topic.name_ps) || "موضوع";
-}
-
-function getTopicDescription(topic) {
-  return pickText(topic.description || topic.intro || topic.summary ||
-                  topic.text || topic.description_ps);
-}
-
-function getTopicSections(topic) {
-  if (Array.isArray(topic.sections)) return topic.sections;
-  if (Array.isArray(topic.lessons)) return topic.lessons;
-  if (Array.isArray(topic.items)) return topic.items;
-  return [];
-}
-
-function showHome() {
-  currentView = "home";
-  currentTopic = null;
-  currentSurah = null;
-  $("grid").style.display = "grid";
-  $("panel").style.display = "none";
-  $("homeHeading").style.display = "block";
-  $("search").style.display = "block";
-  renderHome();
-}
-
-function showPanel(title, html) {
-  $("grid").style.display = "none";
-  $("homeHeading").style.display = "none";
-  $("search").style.display = "none";
-  $("panel").style.display = "block";
-  $("panelContent").innerHTML =
-    "<h2>" + escapeHTML(title) + "</h2>" + html;
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  return `
+    <article class="card">
+      <button class="bookmark" onclick="saveBookmark('${escapeHTML(topic.id)}')" aria-label="Bookmark">
+        ${saved ? "★" : "☆"}
+      </button>
+      <button class="topic-open" onclick="openTopic('${escapeHTML(topic.id)}')">
+        <span class="topic-icon">${escapeHTML(topic.icon || "📖")}</span>
+        <h3>${escapeHTML(topic.title)}</h3>
+        <p>${escapeHTML(topic.description || "")}</p>
+        <span class="read-more">لوستل ←</span>
+      </button>
+    </article>
+  `;
 }
 
 function renderHome() {
-  const grid = $("grid");
-  grid.innerHTML = "";
-  $("savedCount").textContent = getBookmarks().length;
+  const search = (searchInput?.value || "").trim().toLowerCase();
 
-  const query = $("search").value.trim().toLowerCase();
+  const filtered = allTopics.filter(topic => {
+    const content = [
+      topic.title,
+      topic.description,
+      ...(topic.sections || []).map(section =>
+        `${section.heading} ${section.text}`
+      )
+    ].join(" ").toLowerCase();
 
-  const cards = [
-    {
-      icon: "📚",
-      title: t("lessons"),
-      description: t("lessonsDesc"),
-      action: "lessons"
-    },
-    {
-      icon: "📖",
-      title: t("quran"),
-      description: t("quranDesc"),
-      action: "quran"
-    },
-    {
-      icon: "⭐",
-      title: t("bookmarks"),
-      description: t("bookmarksDesc"),
-      action: "bookmarks"
-    }
-  ];
-
-  cards.forEach(card => {
-    const haystack = (card.title + " " + card.description).toLowerCase();
-    if (query && !haystack.includes(query)) return;
-
-    const button = document.createElement("button");
-    button.className = "card";
-    button.innerHTML =
-      '<span class="icon">' + card.icon + '</span>' +
-      '<h3>' + escapeHTML(card.title) + '</h3>' +
-      '<p>' + escapeHTML(card.description) + '</p>';
-
-    button.addEventListener("click", () => {
-      if (card.action === "lessons") openIslamicLesson();
-      if (card.action === "quran") openQuran();
-      if (card.action === "bookmarks") showBookmarks();
-    });
-    grid.appendChild(button);
+    return content.includes(search);
   });
 
-  if (!query) return;
+  app.innerHTML = `
+    <section class="welcome">
+      <div class="welcome-icon">☪️</div>
+      <h1>نورالاسلام</h1>
+      <p>د اسلامي زده‌کړو وړیا او آفلاین لارښود</p>
+      <div class="badges">
+        <span>وړیا</span>
+        <span>بې اعلانونو</span>
+        <span>آفلاین</span>
+      </div>
+    </section>
 
-  if (islamicData) {
-    islamicData.forEach((topic, index) => {
-      const title = getTopicTitle(topic);
-      const description = getTopicDescription(topic);
-      const haystack = (title + " " + description).toLowerCase();
+    <section class="quick-actions">
+      <button onclick="showQuran()">📖 قرآن کریم</button>
+      <button onclick="showBookmarks()">⭐ خوندي شوي</button>
+      <button onclick="showAllTopics()">📚 ټول درسونه</button>
+    </section>
 
-      if (!haystack.includes(query)) return;
+    <h2 class="section-title">اسلامي درسونه</h2>
 
-      const button = document.createElement("button");
-      button.className = "card";
-      button.innerHTML =
-        '<span class="icon">🕌</span><h3>' +
-        escapeHTML(title) + '</h3><p>' +
-        escapeHTML(description.slice(0, 100)) + '</p>';
+    <div class="cards">
+      ${
+        filtered.length
+          ? filtered.map(topicCard).join("")
+          : `<div class="empty">ستاسې د لټون نتیجه پیدا نه شوه.</div>`
+      }
+    </div>
 
-      button.addEventListener("click", () => showIslamicTopic(index));
-      grid.appendChild(button);
-    });
-  }
-
-  if (!grid.children.length) {
-    grid.innerHTML = '<div class="item">' + escapeHTML(t("noResults")) + '</div>';
-  }
+    <section class="notice">
+      <h3>یادونه</h3>
+      <p>
+        دا اپلیکیشن د عمومي زده‌کړې لپاره دی. د ځانګړو فقهي مسئلو،
+        اختلافی موضوعاتو او شخصي شرعي حالتونو لپاره له باوري عالم څخه پوښتنه وکړئ.
+      </p>
+    </section>
+  `;
 }
 
-async function openIslamicLesson() {
-  currentView = "lessons";
-  showPanel(t("lessons"), '<p>' + escapeHTML(t("loading")) + '</p>');
+function showAllTopics() {
+  currentView = "home";
 
-  try {
-    const topics = await loadIslamicData();
-
-    if (!topics.length) {
-      $("panelContent").innerHTML =
-        '<h2>' + escapeHTML(t("lessons")) + '</h2><p>' +
-        escapeHTML(t("noTopics")) + '</p>';
-      return;
-    }
-
-    let html = "";
-    topics.forEach((topic, index) => {
-      const title = getTopicTitle(topic);
-      const description = getTopicDescription(topic);
-
-      html += '<button class="card" style="width:100%;margin:5px 0" ' +
-        'data-topic-index="' + index + '">' +
-        '<h3>📘 ' + escapeHTML(title) + '</h3>' +
-        '<p>' + escapeHTML(description.slice(0, 180)) + '</p></button>';
-    });
-
-    $("panelContent").innerHTML =
-      '<h2>' + escapeHTML(t("lessons")) + '</h2>' + html;
-
-    $("panelContent").querySelectorAll("[data-topic-index]").forEach(button => {
-      button.addEventListener("click", () => {
-        showIslamicTopic(Number(button.dataset.topicIndex));
-      });
-    });
-
-    $("topicCount").textContent = topics.length;
-    setStatus(t("dataLoaded"));
-  } catch (error) {
-    console.error("Islamic data loading error:", error);
-    $("panelContent").innerHTML =
-      '<h2>' + escapeHTML(t("lessons")) + '</h2>' +
-      '<p class="error">' + escapeHTML(t("dataError")) + '</p>' +
-      '<p class="small">' + escapeHTML(error.message) + '</p>';
-    setStatus(t("dataError"), true);
+  if (searchInput) {
+    searchInput.value = "";
   }
+
+  renderHome();
+  window.scrollTo(0, 0);
 }
 
-function showIslamicTopic(index) {
-  if (!Array.isArray(islamicData) || !islamicData[index]) {
-    openIslamicLesson();
+function openTopic(id) {
+  const topic = allTopics.find(item => item.id === id);
+
+  if (!topic) {
+    app.innerHTML = `<p>موضوع پیدا نه شوه.</p>`;
     return;
   }
 
   currentView = "topic";
-  currentTopic = index;
+  currentTopic = topic;
 
-  const topic = islamicData[index];
-  const title = getTopicTitle(topic);
-  const description = getTopicDescription(topic);
-  const sections = getTopicSections(topic);
-  const topicId = "topic-" + index;
+  const saved = getSavedBookmarks().includes(topic.id);
 
-  let html = "";
+  app.innerHTML = `
+    <button class="back-button" onclick="goHome()">← بېرته</button>
 
-  if (description) {
-    html += '<div class="item">' + escapeHTML(description) + '</div>';
-  }
+    <section class="lesson-header">
+      <span class="topic-icon">${escapeHTML(topic.icon || "📖")}</span>
+      <h1>${escapeHTML(topic.title)}</h1>
+      <p>${escapeHTML(topic.description || "")}</p>
+      <button class="save-button" onclick="saveBookmark('${escapeHTML(topic.id)}')">
+        ${saved ? "★ له خوندي شوو څخه لرې کړه" : "☆ خوندي یې کړه"}
+      </button>
+    </section>
 
-  if (!sections.length) {
-    const body = pickText(topic.content || topic.details || topic.body ||
-                          topic.text || topic.description);
+    <div class="lesson-sections">
+      ${(topic.sections || []).map((section, index) => `
+        <article class="lesson-section">
+          <h2>${index + 1}. ${escapeHTML(section.heading)}</h2>
+          <p>${escapeHTML(section.text).replaceAll("\n", "<br>")}</p>
+        </article>
+      `).join("")}
+    </div>
 
-    html += body
-      ? '<div class="item">' + escapeHTML(body) + '</div>'
-      : '<p>' + escapeHTML(t("noSections")) + '</p>';
-  } else {
-    sections.forEach((section, i) => {
-      if (typeof section === "string") {
-        html += '<article class="item"><h3>' + (i + 1) +
-                '</h3><p>' + escapeHTML(section) + '</p></article>';
-        return;
-      }
+    <div class="notice">
+      د دیني مسئلو د دقیقو احکامو لپاره له باوري اسلامي عالم سره مشوره وکړئ.
+    </div>
+  `;
 
-      const heading = pickText(section.heading || section.title ||
-                               section.name || section.question);
-      const body = pickText(section.text || section.content ||
-                            section.description || section.answer ||
-                            section.details || section.body);
-
-      html += '<article class="item">';
-      if (heading) html += '<h3>' + escapeHTML(heading) + '</h3>';
-      if (body) html += '<div>' + escapeHTML(body) + '</div>';
-
-      if (!heading && !body) {
-        html += '<p>' + escapeHTML(JSON.stringify(section)) + '</p>';
-      }
-
-      html += '</article>';
-    });
-  }
-
-  const saved = isBookmarked(topicId);
-  html =
-    '<button class="action secondary" id="bookmarkTopic">' +
-    (saved ? '★ ' + escapeHTML(t("remove")) : '☆ ' + escapeHTML(t("saved"))) +
-    '</button>' + html;
-
-  showPanel(title, html);
-
-  $("bookmarkTopic").addEventListener("click", () => {
-    toggleBookmark(topicId, title, description);
-  });
+  window.scrollTo(0, 0);
 }
 
 function showBookmarks() {
   currentView = "bookmarks";
+
+  const saved = getSavedBookmarks();
+  const items = allTopics.filter(topic => saved.includes(topic.id));
+
+  app.innerHTML = `
+    <button class="back-button" onclick="goHome()">← بېرته</button>
+    <h1>⭐ خوندي شوي درسونه</h1>
+    <div class="cards">
+      ${
+        items.length
+          ? items.map(topicCard).join("")
+          : `<div class="empty">تر اوسه دې کوم درس نه دی خوندي کړی.</div>`
+      }
+    </div>
+  `;
+
+  window.scrollTo(0, 0);
+}
+
+function showQuran() {
+  currentView = "quran";
+
+  app.innerHTML = `
+    <button class="back-button" onclick="goHome()">← بېرته</button>
+
+    <section class="lesson-header">
+      <h1>📖 قرآن کریم</h1>
+      <p>د قرآن کریم د ځینو لنډو سورتونو عربي متن او پښتو معنا</p>
+    </section>
+
+    <div class="quran-list">
+      ${quranData.map((surah, index) => `
+        <article class="surah-card">
+          <h2>${index + 1}. ${escapeHTML(surah.name)}</h2>
+          ${surah.arabic.map((ayah, ayahIndex) => `
+            <div class="ayah">
+              <p class="arabic">${escapeHTML(ayah)}</p>
+              <p class="translation">${escapeHTML(surah.translation[ayahIndex] || "")}</p>
+            </div>
+          `).join("")}
+        </article>
+      `).join("")}
+    </div>
+
+    <section class="notice">
+      <strong>مهم:</strong>
+      په دې واحد فایل کې د قرآن کریم یوازې ځینې سورتونه شامل دي؛
+      دا د ټولو ۱۱۴ سورتونو بشپړ متن نه دی. د بشپړ قرآن کریم لپاره
+      باید ټول عربي متن او باوري ژباړه ورزیاته شي.
+    </section>
+  `;
+
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  currentView = "home";
   currentTopic = null;
+  renderHome();
+  window.scrollTo(0, 0);
+}
 
-  const list = getBookmarks();
-  let html = "";
-
-  if (!list.length) {
-    html = '<p>' + escapeHTML(t("noSaved")) + '</p>';
+function render() {
+  if (currentView === "topic" && currentTopic) {
+    openTopic(currentTopic.id);
+  } else if (currentView === "quran") {
+    showQuran();
+  } else if (currentView === "bookmarks") {
+    showBookmarks();
   } else {
-    list.forEach(item => {
-      html += '<article class="item"><h3>' +
-        escapeHTML(item.title) + '</h3><p>' +
-        escapeHTML(item.text || "") + '</p>' +
-        '<button class="action secondary" data-remove="' +
-        escapeHTML(item.id) + '">' + escapeHTML(t("remove")) +
-        '</button></article>';
-    });
+    renderHome();
   }
+}
 
-  showPanel(t("bookmarks"), html);
-
-  $("panelContent").querySelectorAll("[data-remove]").forEach(button => {
-    button.addEventListener("click", () => {
-      const id = button.dataset.remove;
-      saveBookmarks(getBookmarks().filter(item => item.id !== id));
-      showBookmarks();
-    });
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    currentView = "home";
+    renderHome();
   });
 }
 
-async function openQuran() {
-  currentView = "quran";
-  currentSurah = null;
-  showPanel(t("quran"), '<p>' + escapeHTML(t("loading")) + '</p>');
+window.openTopic = openTopic;
+window.saveBookmark = saveBookmark;
+window.showQuran = showQuran;
+window.showBookmarks = showBookmarks;
+window.showAllTopics = showAllTopics;
+window.goHome = goHome;
 
-  try {
-    await loadQuranData();
-    renderQuran();
-  } catch (error) {
-    console.error("Quran loading error:", error);
-    $("panelContent").innerHTML =
-      '<h2>' + escapeHTML(t("quran")) + '</h2><p class="error">' +
-      escapeHT
+renderHome();
+</script>
+</body>
+</html>
+/* ==========================================
+   نورالاسلام — درېیمه برخه
+   اضافي اسلامي درسونه
+   ========================================== */
+
+const moreIslamicLessons = [
+
+{
+id: "seerah",
+title: "د رسول الله ﷺ سیرت",
+icon: "🌙",
+description: "د حضرت محمد ﷺ ژوند، اخلاق او دعوت",
+sections: [
+{
+heading: "د رسول الله ﷺ زېږېدنه",
+text: "حضرت محمد ﷺ په مکه مکرمه کې د قریشو د بني هاشم له کورنۍ څخه وو. د مشهور قول له مخې په عام الفیل کې زېږېدلی و. د هغه مبارک ژوند د انسانانو لپاره د هدایت او رحمت نمونه ده."
+},
+{
+heading: "د ماشومتوب ژوند",
+text: "رسول الله ﷺ په ماشومتوب کې د خپل پلار له سیوري بې برخې و. وروسته یې مور هم وفات شوه. د هغه پالنه لومړی نیکه عبدالمطلب او وروسته تره ابوطالب وکړه."
+},
+{
+heading: "د نبوت پیل",
+text: "کله چې رسول الله ﷺ څلوېښت کلنۍ ته ورسېد، په غار حرا کې ورته د الله تعالی له لوري لومړنی وحی نازل شو. حضرت جبرائیل علیه السلام ورته د اقرأ په الفاظو سره راغی."
+},
+{
+heading: "مکي دعوت",
+text: "رسول الله ﷺ خلکو ته د یوه الله عبادت، له شرک څخه ځان ساتل، رښتینولي، عدالت او ښه اخلاق ورزده کړل. مسلمانانو په مکه کې له سختو ستونزو سره مخامخ شول، خو پر خپل دین ثابت پاتې شول."
+},
+{
+heading: "هجرت مدینې ته",
+text: "کله چې په مکه کې د مسلمانانو ستونزې زیاتې شوې، رسول الله ﷺ د الله تعالی په لارښوونه مدینې منورې ته هجرت وکړ. هلته اسلامي ټولنه جوړه شوه او د مسلمانانو ترمنځ ورورولي پیاوړې شوه."
+},
+{
+heading: "د رسول الله ﷺ اخلاق",
+text: "رسول الله ﷺ رښتینی، امانتدار، مهربان، زغمناک او عادل و. له ماشومانو، بېوزلو، یتیمانو او کمزورو خلکو سره یې ښه چلند کاوه. مسلمان باید د هغه مبارک اخلاق خپل کړي."
+},
+{
+heading: "د سیرت د زده کړې ګټه",
+text: "د رسول الله ﷺ سیرت د عبادت، کورني ژوند، تجارت، عدالت، صبر او ټولنیزو اړیکو لپاره مهم لارښود دی. د سیرت د دقیقو پېښو لپاره له باوري حدیثي او تاریخي کتابونو استفاده وکړئ."
+}
+]
+},
+
+{
+id: "prophets",
+title: "د پیغمبرانو کیسې",
+icon: "📜",
+description: "د قرآن کریم له مخې د پیغمبرانو له ژوند څخه درسونه",
+sections: [
+{
+heading: "حضرت آدم علیه السلام",
+text: "حضرت آدم علیه السلام د انسانانو لومړنی پلار او د الله تعالی پیغمبر و. الله تعالی هغه پیدا کړ او علم یې ور وښود. د آدم علیه السلام له کیسې څخه د توبې، اطاعت او د الله تعالی د رحمت درس زده کېږي."
+},
+{
+heading: "حضرت نوح علیه السلام",
+text: "حضرت نوح علیه السلام خپل قوم د اوږدې مودې لپاره د الله تعالی یووالي ته دعوت کړ. له انکار سره سره یې دعوت ته دوام ورکړ. د هغه له کیسې څخه د صبر او پر حق د ثابت پاتې کېدو درس اخلو."
+},
+{
+heading: "حضرت ابراهیم علیه السلام",
+text: "حضرت ابراهیم علیه السلام د توحید ستر پیغمبر و. هغه خپل قوم له بت‌پرستۍ څخه منع کاوه. د هغه له ژوند څخه د توحید، اخلاص، قربانۍ او پر الله تعالی د توکل درس زده کېږي."
+},
+{
+heading: "حضرت یوسف علیه السلام",
+text: "د حضرت یوسف علیه السلام کیسه په سورة یوسف کې بیان شوې ده. هغه له ډېرو سختیو سره مخ شو، خو صبر یې وکړ او د الله تعالی پر رحمت یې باور وساته. د هغه کیسه د عفت، بښنې او صبر مهم درسونه لري."
+},
+{
+heading: "حضرت موسی علیه السلام",
+text: "حضرت موسی علیه السلام د فرعون پر وړاندې د حق دعوت وکړ. قرآن کریم د هغه د ژوند ګڼې پېښې بیانوي. له دې کیسې څخه د ظلم پر وړاندې د حق ویلو او د الله تعالی پر مرسته د باور درس اخلو."
+},
+{
+heading: "حضرت عیسی علیه السلام",
+text: "حضرت عیسی علیه السلام د الله تعالی له سترو پیغمبرانو څخه دی. قرآن کریم د هغه د زېږېدنې او دعوت په اړه معلومات بیانوي. مسلمانان پر هغه علیه السلام ایمان لري او د الله تعالی بنده او پیغمبر یې ګڼي."
+},
+{
+heading: "حضرت محمد ﷺ",
+text: "حضرت محمد ﷺ د الله تعالی وروستی پیغمبر دی. قرآن کریم د هغه پر پیروۍ، اطاعت او ښه اخلاقو ټینګار کوي. مسلمانان باید د هغه صحیح سنت زده او په ژوند کې عملي کړي."
+}
+]
+},
+
+{
+id: "companions",
+title: "صحابه کرام رضی الله عنهم",
+icon: "🤲",
+description: "د رسول الله ﷺ د ملګرو ژوند او غوره ځانګړنې",
+sections: [
+{
+heading: "صحابي څوک دی؟",
+text: "صحابي هغه څوک دی چې د ایمان په حالت کې یې رسول الله ﷺ لیدلی وي او پر اسلام وفات شوی وي. صحابه کرامو د قرآن کریم او د رسول الله ﷺ د سنتو په لېږد کې مهم رول درلود."
+},
+{
+heading: "حضرت ابوبکر صدیق رضي الله عنه",
+text: "حضرت ابوبکر رضي الله عنه د رسول الله ﷺ نږدې ملګری او د مسلمانانو لومړنی خلیفه و. د هغه له ژوند څخه د وفادارۍ، اخلاص، سخاوت او د حق ملاتړ زده کوو."
+},
+{
+heading: "حضرت عمر فاروق رضي الله عنه",
+text: "حضرت عمر رضي الله عنه د مسلمانانو دویم خلیفه و. هغه د عدالت، حساب ورکونې او د خلکو د حقونو د ساتنې لپاره مشهور دی. د هغه ژوند د مسؤلیت او انصاف مهم درسونه لري."
+},
+{
+heading: "حضرت عثمان رضي الله عنه",
+text: "حضرت عثمان رضي الله عنه د مسلمانانو درېیم خلیفه و. هغه په سخاوت او حیا مشهور و. د هغه له ژوند څخه د خیر په کارونو کې د مال لګولو او د مسلمانانو د خدمت درس اخلو."
+},
+{
+heading: "حضرت علي رضي الله عنه",
+text: "حضرت علي رضي الله عنه د رسول الله ﷺ د کورنۍ له نږدې غړو او د مسلمانانو څلورم راشد خلیفه و. هغه په علم، زړورتیا او حکمت مشهور و."
+},
+{
+heading: "د صحابه کرامو احترام",
+text: "مسلمان باید د صحابه کرامو په اړه په ادب خبرې وکړي، د هغوی د دیني خدمتونو قدر وکړي او د اختلافونو په اړه له سپکاوي او بې‌اساسه خبرو څخه ځان وساتي."
+}
+]
+},
+
+{
+id: "akhirah",
+title: "آخرت او د قیامت ورځ",
+icon: "🌅",
+description: "د مرګ، بیا راژوندي کېدو او حساب په اړه زده کړه",
+sections: [
+{
+heading: "پر آخرت ایمان",
+text: "پر آخرت ایمان د ایمان له شپږو بنسټونو څخه دی. مسلمان باور لري چې د دنیا ژوند پای لري او انسانان به د الله تعالی په حکم بیا راژوندي کېږي او د خپلو اعمالو حساب به ورکوي."
+},
+{
+heading: "مرګ",
+text: "مرګ د دنیا د ژوند پای او د آخرت پر لور د انسان د تګ پیل دی. مسلمان باید له مرګ څخه د وېرې ترڅنګ د نېکو اعمالو، توبې او د خلکو د حقونو د ادا کولو لپاره هڅه وکړي."
+},
+{
+heading: "بیا راژوندي کېدل",
+text: "قرآن کریم بیانوي چې الله تعالی به انسانان د قیامت په ورځ بیا راژوندي کړي. د الله تعالی قدرت د هر څه لپاره کافي دی."
+},
+{
+heading: "د اعمالو حساب",
+text: "مسلمان باور لري چې د انسان اعمال به د الله تعالی په عدالت کې حسابېږي. له همدې امله باید له ظلم، دروغو، خیانت او د نورو له حقونو خوړلو ځان وساتي."
+},
+{
+heading: "د نېکو اعمالو اهمیت",
+text: "لمونځ، روژه، صدقه، رښتینولي، د مور او پلار خدمت، له خلکو سره ښه چلند او د ګناهونو پرېښودل د نېکو اعمالو له مهمو بېلګو څخه دي."
+},
+{
+heading: "د قیامت د نښو په اړه",
+text: "د قیامت د وړو او لویو نښو په اړه په قرآن او حدیثونو کې معلومات راغلي دي. د هرې نښې په اړه باید د صحیح روایتونو او باوري علماوو تشریح وکتل شي؛ له بې‌اساسه اټکلونو څخه ځان وساتئ."
+}
+]
+},
+
+{
+id: "jannah",
+title: "جنت او دوزخ",
+icon: "🌳",
+description: "د قرآن او سنتو له مخې د جنت او دوزخ پېژندنه",
+sections: [
+{
+heading: "جنت",
+text: "جنت د الله تعالی له لوري د مؤمنانو لپاره د انعام او نعمتونو ځای دی. قرآن کریم د جنت د نعمتونو، سولې او تلپاتې ژوند یادونه کوي."
+},
+{
+heading: "جنت ته د رسېدو لار",
+text: "د الله تعالی پر رحمت باور، صحیح ایمان، نېک اعمال، توبه، اخلاص او د خلکو د حقونو ادا کول د مسلمان د ژوند مهم هدفونه دي. جنت ته ننوتل د الله تعالی په رحمت پورې تړلي دي."
+},
+{
+heading: "دوزخ",
+text: "قرآن کریم د دوزخ په اړه خبرداری ورکوي او انسان له کفر، ظلم او ګناهونو څخه منع کوي. مسلمان باید له ګناه څخه توبه وباسي او د الله تعالی رحمت ته هیله‌من وي."
+},
+{
+heading: "د وېرې او امید توازن",
+text: "مسلمان باید د الله تعالی له عذابه ووېرېږي، خو له رحمت څخه یې ناامیده نه شي. توبه، اصلاح او د نېکو اعمالو دوام د مؤمن د ژوند مهمې برخې دي."
+}
+]
+},
+
+{
+id: "halalharam",
+title: "حلال او حرام",
+icon: "⚖️",
+description: "په خوراک، تجارت او ورځني ژوند کې د حلالو او حرامو پېژندنه",
+sections: [
+{
+heading: "حلال څه شی دی؟",
+text: "حلال هغه څه دي چې شریعت یې اجازه ورکړې وي. مسلمان باید د خوراک، عاید، تجارت او ورځني ژوند په چارو کې د حلالو احکام زده کړي."
+},
+{
+heading: "حرام څه شی دی؟",
+text: "حرام هغه کار یا شی دی چې شریعت منع کړی وي. د حرامو په اړه باید له قرآن، صحیح سنتو او باوري فقهي سرچینو څخه معلومات واخیستل شي."
+},
+{
+heading: "حلال عاید",
+text: "مسلمان باید خپل عاید له روا لارو ترلاسه کړي، د خلکو مال په ناحقه وانخلي، په معامله کې دوکه ونه کړي او د خپلو پورونو او ژمنو خیال وساتي."
+},
+{
+heading: "په تجارت کې امانت",
+text: "د توکو عیبونه مه پټوئ، په وزن او پیمانه کې انصاف وکړئ، دروغجن قسمونه مه خورئ او له پېرودونکي سره رښتینی چلند وکړئ."
+},
+{
+heading: "د شکمنو چارو په اړه",
+text: "که د کومې معاملې شرعي حکم نه وي معلوم، د ځان له خوا فتوا مه جوړوئ. د معاملې ټول شرایط له باوري عالم سره شریک کړئ."
+}
+]
+},
+
+{
+id: "rights",
+title: "د خلکو حقونه",
+icon: "🫱🏻‍🫲🏽",
+description: "عدالت، امانت، د ګاونډي حقونه او د خلکو سره ښه چلند",
+sections: [
+{
+heading: "د انسان عزت",
+text: "له خلکو سره په عزت او انصاف چلند وکړئ. د چا سپکاوی، بې‌ځایه تور لګول او د خلکو رازونه خپرول د ټولنې اړیکې خرابوي."
+},
+{
+heading: "د ګاونډي حق",
+text: "ګاونډی مه ځوروئ، د هغه د مال او عزت خیال وساتئ او د اړتیا پر وخت مرسته ورسره وکړئ."
+},
+{
+heading: "د یتیم حق",
+text: "د یتیم له مال څخه په ناحقه استفاده مه کوئ. له یتیمانو سره په مهربانۍ چلند وکړئ او د هغوی حقونه وساتئ."
+},
+{
+heading: "د پور ادا کول",
+text: "پور په امانت واخلئ، د ادا کولو نیت او هڅه ولرئ، او که د پور په ادا کولو کې ستونزه وي، له پور ورکوونکي سره په صداقت خبرې وکړئ."
+},
+{
+heading: "بښنه او اصلاح",
+text: "کله چې څوک تېروتنه وکړي، د اصلاح او بښنې هڅه وکړئ. بښنه د ظلم منل نه دي؛ د حقونو ساتنه او د شخړو عادلانه حل هم مهم دي."
+}
+]
+},
+
+{
+id: "cleanliness",
+title: "پاکوالی او طهارت",
+icon: "🧼",
+description: "د بدن، جامو او چاپېریال پاکوالی",
+sections: [
+{
+heading: "د پاکوالي ارزښت",
+text: "اسلام د پاکوالي، طهارت او د بدن د نظافت اهمیت بیانوي. مسلمان باید خپل بدن، جامې، د لمانځه ځای او چاپېریال پاک وساتي."
+},
+{
+heading: "د غاښونو پاکوالی",
+text: "د غاښونو پاک ساتل د روغتیا او نظافت لپاره مهم دي. د غاښونو برش او نورې مناسبې لارې وکاروئ او د خولې نظافت ته پام وکړئ."
+},
+{
+heading: "د جامو پاکوالی",
+text: "د لمانځه لپاره د بدن، جامو او ځای د پاکوالي احکام زده کړئ. که د نجاست په اړه شک وي، د خپل فقهي مذهب د اصولو مطابق پوښتنه وکړئ."
+},
+{
+heading: "د چاپېریال پاک ساتل",
+text: "کثافات په مناسبو ځایونو کې واچوئ، د اوبو سرچینې مه چټلوئ او د خلکو د تګ راتګ لارې پاکې وساتئ."
+}
+]
+},
+
+{
+id: "repentance",
+title: "توبه او استغفار",
+icon: "🤍",
+description: "د ګناه پرېښودل او الله تعالی ته رجوع",
+sections: [
+{
+heading: "توبه څه ده؟",
+text: "توبه د ګناه له پرېښودلو، پر تېروتنه له پښېمانۍ او د بیا نه کولو له رښتینې ارادې سره الله تعالی ته رجوع ده."
+},
+{
+heading: "د خلکو حقونه",
+text: "که ګناه د بل انسان حق پورې تړلې وي، یوازې استغفار بسنه نه کوي؛ د امکان او شرعي اصولو مطابق باید حق بېرته ورکړل شي یا له صاحب حق څخه بښنه وغوښتل شي."
+},
+{
+heading: "استغفار",
+text: "أَسْتَغْفِرُ اللَّهَ\nمعنا: له الله تعالی څخه بښنه غواړم."
+},
+{
+heading: "له رحمت څخه ناامیدي مه کوئ",
+text: "قرآن کریم انسانان د الله تعالی له رحمت څخه د ناامیدۍ څخه منع کوي. که څوک تېروتنه وکړي، باید توبه وباسي، خپل عمل اصلاح کړي او د نېکو کارونو هڅه وکړي."
+}
+]
+},
+
+{
+id: "dailydua",
+title: "د ورځني ژوند دعاوې",
+icon: "📿",
+description: "د سهار، ماښام او ورځني ژوند دعاوې",
+sections: [
+{
+heading: "د علم دعا",
+text: "رَبِّ زِدْنِي عِلْمًا\nمعنا: اې زما ربه! زما علم زیات کړه."
+},
+{
+heading: "د بښنې دعا",
+text: "رَبَّنَا ظَلَمْنَا أَنْفُسَنَا وَإِنْ لَمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ\nمعنا: اې زموږ ربه! موږ پر خپلو ځانونو ظلم کړی؛ که ته موږ ونه بښې او رحم راباندې ونه کړې، له زیانمنو به شو."
+},
+{
+heading: "د دنیا او آخرت د خیر دعا",
+text: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ\nمعنا: اې زموږ ربه! موږ ته په دنیا کې خیر راکړه، په آخرت کې خیر راکړه او د اور له عذابه مو وساته."
+},
+{
+heading: "د مور او پلار دعا",
+text: "رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا\nمعنا: اې زما ربه! پر هغوی رحم وکړه، لکه څنګه چې هغوی زه په کوچنیوالي کې روزلی وم."
+},
+{
+heading: "د ذکر اهمیت",
+text: "مسلمان باید د الله تعالی ذکر په اخلاص وکړي، د سهار او ماښام ثابت اذکار زده کړي او د دعاوو عربي متن او معنا دواړه درک کړي."
+}
+]
+},
+
+{
+id: "familylife",
+title: "د واده او کورني ژوند اصول",
+icon: "🏡",
+description: "د مېړه، مېرمنې او کورنۍ متقابل حقونه",
+sections: [
+{
+heading: "ښه کورنی ژوند",
+text: "په کورنۍ کې مینه، مهرباني، مشوره، انصاف او یو بل ته احترام د سالم ژوند مهم اصول دي."
+},
+{
+heading: "متقابل حقونه",
+text: "مېړه او مېرمن باید د یو بل حقونه وپېژني، له سپکاوي او ظلم څخه ځان وساتي او ستونزې په سوله‌ییز ډول حل کړي."
+},
+{
+heading: "د ماشومانو حقونه",
+text: "ماشومان د مینې، پاملرنې، خوندي چاپېریال او مناسبې روزنې حق لري. د هغوی ترمنځ عدالت او د هغوی د اړتیاوو پوره کول مهم دي."
+},
+{
+heading: "د کورنۍ ستونزې",
+text: "د کورني اختلاف پر مهال له سپکاوي، تاوتریخوالي او بې‌اساسه تورونو څخه ډډه وکړئ. د اړتیا په صورت کې له باوري مشر، متخصص یا عالم څخه مرسته وغواړئ."
+}
+]
+},
+
+{
+id: "islamiccalendar",
+title: "اسلامي میاشتې",
+icon: "🌙",
+description: "د هجري قمري کال د دولسو میاشتو پېژندنه",
+sections: [
+{
+heading: "د هجري قمري کال میاشتې",
+text: "۱. محرم\n۲. صفر\n۳. ربیع الاول\n۴. ربیع الثاني\n۵. جمادی الاول\n۶. جمادی الثاني\n۷. رجب\n۸. شعبان\n۹. رمضان\n۱۰. شوال\n۱۱. ذوالقعده\n۱۲. ذوالحجه"
+},
+{
+heading: "رمضان",
+text: "رمضان د روژې میاشت ده. مسلمانان پکې د روژې، قرآن کریم د تلاوت، دعا او خیرات زیات اهتمام کوي."
+},
+{
+heading: "ذوالحجه",
+text: "ذوالحجه د حج میاشت ده. د دې میاشتې په لومړیو لسو ورځو کې د نېکو اعمالو اهمیت په اسلامي روایتونو کې بیان شوی دی."
+},
+{
+heading: "د میاشتې د پیل معلومول",
+text: "د هجري میاشتې پیل د قمري میاشتې له لیدلو او اړوندو شرعي اصولو سره تړاو لري. د هېوادونو د اعلانونو ترمنځ توپیر کېدای شي؛ د خپل ځای له معتبر اعلان څخه خبر شئ."
+}
+]
+},
+
+{
+id: "learningquran",
+title: "د قرآن کریم د تلاوت آداب",
+icon: "📖",
+description: "د قرآن کریم تلاوت، تدبر او احترام",
+sections: [
+{
+heading: "د قرآن کریم زده کړه",
+text: "قرآن کریم د مسلمانانو سپېڅلی کتاب دی. د هغه د تلاوت ترڅنګ د معناوو زده کړه او د لارښوونو عملي کول مهم دي."
+},
+{
+heading: "تجوید",
+text: "تجوید د قرآن کریم د تورو د صحیح تلفظ او د تلاوت د قواعدو علم دی. د تجوید عملي زده کړه له وړ استاد څخه ډېره ګټوره ده."
+},
+{
+heading: "تدبر",
+text: "د قرآن کریم آیتونه په غور ولولئ، معنا یې زده کړئ او د الله تعالی لارښوونې په خپل ژوند کې عملي کړئ."
+},
+{
+heading: "د ژباړې او تفسیر توپیر",
+text: "ژباړه د آیتونو معنا په بله ژبه بیانوي، خو تفسیر د آیتونو د معنا، سبب نزول او اړوندو احکامو تفصیلي تشریح ده. د دیني حکم د معلومولو لپاره یوازې له لنډې ژباړې څخه نتیجه مه اخلئ."
+}
+]
+}
+
+];
+
+/* اضافي درسونه د اپلیکیشن په موجوده لېست کې ورزیاتول */
+for (const lesson of moreIslamicLessons) {
+  if (!allTopics.some(item => item.id === lesson.id)) {
+    allTopics.push(lesson);
+  }
+}
+
+/* د درسونو شمېر */
+console.log("د نورالاسلام ټول درسونه:", allTopics.length);
+/* =========================================
+   NOOR-UL-ISLAM — څلورمه برخه
+   اضافي اسلامي کتابتون
+   ========================================= */
+
+const islamicLibraryPart4 = [
+
+{
+id: "kalimaat",
+title: "کلمې او د هغوی معناوې",
+icon: "☪️",
+description: "د ایمان او توحید اړوند مهمې کلمې",
+sections: [
+{
+heading: "کلمه طیبه",
+text: "لَا إِلَٰهَ إِلَّا اللَّهُ مُحَمَّدٌ رَسُولُ اللَّهِ\nمعنا: له الله پرته بل د عبادت وړ معبود نشته، محمد ﷺ د الله رسول دی."
+},
+{
+heading: "د توحید معنا",
+text: "توحید دا دی چې الله تعالی په خپل ذات، صفاتو او عبادت کې یو وګڼل شي. عبادت باید یوازې د الله تعالی لپاره وي."
+},
+{
+heading: "د شهادت اهمیت",
+text: "شهادت د اسلام بنسټیز اعلان دی. مسلمان باید د دې کلمې معنا درک کړي، په اخلاص باور پرې ولري او د هغې غوښتنې په خپل ژوند کې مراعت کړي."
+},
+{
+heading: "د کلمو زده کړه",
+text: "د کلمو د عربي متن ترڅنګ د هغوی صحیح معناوې هم زده کړئ. د هغو روایتونو د صحت او ځانګړو فضیلتونو په اړه چې خلکو ته منسوبېږي، له باوري علماوو څخه پوښتنه وکړئ."
+}
+]
+},
+
+{
+id: "ayatulkursi",
+title: "آیت الکرسي",
+icon: "📖",
+description: "د سورة البقرة ۲۵۵م آیت",
+sections: [
+{
+heading: "عربي متن",
+text: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ"
+},
+{
+heading: "د آیت عمومي معنا",
+text: "الله هغه ذات دی چې له هغه پرته بل د عبادت وړ معبود نشته؛ تل ژوندی او د ټولو چارو سمبالوونکی دی. نه پرې خوب راځي او نه پلتۍ. د اسمانونو او ځمکې ټول ملک د هغه دی. هېڅوک د هغه له اجازې پرته شفاعت نه شي کولی. هغه پر هر څه پوه دی او د اسمانونو او ځمکې ساتنه ورته ستونزمنه نه ده."
+},
+{
+heading: "د زده کړې سپارښتنه",
+text: "آیت الکرسي د سورة البقرة ۲۵۵م آیت دی. د صحیح تلاوت لپاره یې له قاري یا باوري قرآني سرچینې سره تلفظ پرتله کړئ او د معتبر تفسیر له لارې یې تفصیلي معنا زده کړئ."
+}
+]
+},
+
+{
+id: "surahmulk",
+title: "سورة الملک",
+icon: "📘",
+description: "د قرآن کریم د ۶۷م سورت پېژندنه",
+sections: [
+{
+heading: "د سورة الملک پېژندنه",
+text: "سورة الملک د قرآن کریم شپږدېرش نه، بلکې اووه شپېتم سورت دی. دا سورت د الله تعالی د قدرت، د ژوند او مرګ د حکمت او د کایناتو د نظم په اړه خبرې کوي."
+},
+{
+heading: "د سورت مهم پیغامونه",
+text: "د الله تعالی د قدرت پېژندنه، د ژوند ازموینه، د اسمانونو په جوړښت کې فکر کول، د آخرت یادونه او د انسان مسؤلیت د دې سورت له مهمو پیغامونو څخه دي."
+},
+{
+heading: "د تلاوت طریقه",
+text: "سورت په صحیح عربي تلاوت کړئ، معنا یې زده کړئ او د معتبر تفسیر له مخې یې پیغامونه درک کړئ. د ځانګړو فضیلتونو په اړه یوازې پر ثابتو روایتونو باور وکړئ."
+}
+]
+},
+
+{
+id: "surahkahf",
+title: "سورة الکهف",
+icon: "📗",
+description: "د سورة الکهف مهمې کیسې او پیغامونه",
+sections: [
+{
+heading: "اصحاب کهف",
+text: "قرآن کریم د ځوانانو کیسه بیانوي چې د خپل ایمان د ساتلو لپاره یې پناه واخیسته. له دې کیسې څخه د ایمان د ساتنې، صبر او پر الله تعالی د توکل درس اخلو."
+},
+{
+heading: "د دوو باغونو خاوندان",
+text: "د دوو باغونو کیسه انسان ته یادونه کوي چې مال او شتمني تلپاتې نه دي. انسان باید د الله تعالی شکر ادا کړي او د خپل مال په اړه مغرور نه شي."
+},
+{
+heading: "موسی او خضر علیهما السلام",
+text: "د دې کیسې له لارې د علم، صبر او د هغو پېښو د حکمت د نه پوهېدو درس زده کېږي چې انسان یې بشپړ حقیقت نه شي درک کولی."
+},
+{
+heading: "ذوالقرنین",
+text: "قرآن کریم د ذوالقرنین کیسه بیانوي او د قدرت، عدالت او د خلکو د مرستې اړخونه یې راښيي."
+}
+]
+},
+
+{
+id: "dua_morning",
+title: "د سهار او ماښام اذکار",
+icon: "🌅",
+description: "د الله تعالی ذکر او د ورځې پیل",
+sections: [
+{
+heading: "د سهار دعا",
+text: "اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا وَبِكَ نَحْيَا وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ\nمعنا: اې الله! ستا په مرسته سهار کوو، ستا په مرسته ماښام کوو، ستا په مرسته ژوند کوو او مرو، او بېرته ستا لور ته راپاڅېدل دي.\nیادونه: د روایتونو د الفاظو او د سهار یا ماښام د مناسبې نسخې لپاره له باوري اذکارو کتاب سره پرتله وکړئ."
+},
+{
+heading: "د ذکر عمومي لارښوونه",
+text: "د سهار او ماښام اذکار په اخلاص او د معنا په پوهېدو سره ووایئ. د اذکارو لپاره ثابتو روایتونو ته مراجعه وکړئ."
+},
+{
+heading: "د ذکر ګټې",
+text: "ذکر د الله تعالی یاد تازه کوي، انسان د شکر، توبې او نېکو اعمالو لور ته هڅوي او د زړه د سکون سبب ګرځي."
+}
+]
+},
+
+{
+id: "dua_sleep",
+title: "د خوب دعاوې او آداب",
+icon: "🌙",
+description: "د ویده کېدو او له خوبه د راپاڅېدو اذکار",
+sections: [
+{
+heading: "د خوب دعا",
+text: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا\nمعنا: اې الله! ستا په نوم مړ کېږم او ژوندی کېږم."
+},
+{
+heading: "له خوبه د راپاڅېدو دعا",
+text: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ\nمعنا: ټولې ستاینې د الله لپاره دي چې له مرګ‌غوندې خوب وروسته یې موږ بېرته راژوندي کړو، او بېرته راپاڅېدل د هغه لور ته دي."
+},
+{
+heading: "د خوب آداب",
+text: "د خوب مخکې د بدن او ځای پاکوالي ته پام وکړئ، د امکان په صورت کې اودس وکړئ، ثابت اذکار ولولئ او خپل ورځني حساب ته پام وکړئ."
+}
+]
+},
+
+{
+id: "dua_travel",
+title: "د سفر دعا او آداب",
+icon: "🧳",
+description: "د سفر پر مهال دعا او احتیاط",
+sections: [
+{
+heading: "د سفر اهمیت",
+text: "سفر د کار، زده کړې، عبادت او نورو روا موخو لپاره کېدای شي. مسلمان باید د سفر پر مهال د عبادت، امانت او د نورو د حقونو خیال وساتي."
+},
+{
+heading: "د سفر دعا",
+text: "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنْقَلِبُونَ\nمعنا: پاک دی هغه ذات چې دا یې زموږ لپاره تابع کړي؛ که نه، موږ یې د تابع کولو توان نه درلود، او موږ بېرته خپل رب ته ورګرځېدونکي یو."
+},
+{
+heading: "د سفر مسؤلیت",
+text: "د سفر قانوني اسناد، روغتیا، خوندیتوب او د نورو د حقونو مراعت مهم دي. د سفر د لمانځه د قصر او جمع احکام د فقهي شرایطو له مخې زده کړئ."
+}
+]
+},
+
+{
+id: "dua_illness",
+title: "د ناروغۍ پر مهال دعا او آداب",
+icon: "🤲",
+description: "د ناروغ پوښتنه او د شفا دعا",
+sections: [
+{
+heading: "د شفا دعا",
+text: "أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ\nمعنا: له لوی الله، د لوی عرش له رب څخه غواړم چې تا ته شفا درکړي."
+},
+{
+heading: "د ناروغ پوښتنه",
+text: "د ناروغ پوښتنه، د هغه تسلي کول او د اړتیا پر مهال مرسته ورسره کول ښه عملونه دي. د ناروغ حالت ته پام وکړئ او د هغه د ارامۍ خیال وساتئ."
+},
+{
+heading: "د علاج اهمیت",
+text: "دعا او توکل له مناسب علاج سره مخالف نه دي. د جدي ناروغۍ په صورت کې له وړ روغتیايي متخصص څخه مرسته وغواړئ."
+}
+]
+},
+
+{
+id: "charity",
+title: "صدقه او خیرات",
+icon: "💚",
+description: "د اړمنو مرسته او د مال په لګولو کې اخلاص",
+sections: [
+{
+heading: "صدقه څه ده؟",
+text: "صدقه د الله تعالی د رضا لپاره د مال یا نورو ګټورو شیانو ورکول دي. د اړمنو مرسته کول، د لوږې د مخنیوي هڅه او د خلکو اړتیاوې پوره کول د خیر له مهمو لارو څخه دي."
+},
+{
+heading: "اخلاص",
+text: "صدقه د الله تعالی د رضا لپاره ورکړئ، نه د شهرت او ستاینې لپاره. د اړمن انسان عزت وساتئ او هغه مه شرموئ."
+},
+{
+heading: "یوازې پیسې نه",
+text: "ښه خبره، د خلکو مرسته، د زیان مخنیوی او نور ګټور کارونه هم د خیر له بڼو څخه دي. د هر عمل ارزښت په نیت او شرعي لارښوونو پورې تړاو لري."
+},
+{
+heading: "د زکات او صدقې توپیر",
+text: "زکات د ځانګړو شرایطو له مخې فرض مالي عبادت دی، خو نفلي صدقه د خیر اضافي عمل دی. د دواړو احکام او د مستحقینو شرایط یو شان نه دي."
+}
+]
+},
+
+{
+id: "patience",
+title: "صبر او شکر",
+icon: "🌿",
+description: "په سختۍ کې صبر او په نعمت کې شکر",
+sections: [
+{
+heading: "صبر څه دی؟",
+text: "صبر د ستونزو پر مهال د حوصلې ساتل، د ګناهونو څخه ځان ژغورل او د نېکو اعمالو پر دوام ټینګ پاتې کېدل دي."
+},
+{
+heading: "شکر څه دی؟",
+text: "شکر د الله تعالی د نعمتونو پېژندل، په زړه کې یې منل، په ژبه یې ستاینه او د نعمتونو په سمه لار کې کارول دي."
+},
+{
+heading: "د ستونزو پر مهال",
+text: "د ستونزو پر مهال دعا وکړئ، د حل روا لارې ولټوئ، له باوري خلکو مرسته وغواړئ او له ناامیدۍ څخه ځان وساتئ."
+},
+{
+heading: "د نعمتونو ساتنه",
+text: "روغتیا، وخت، علم، کورنۍ او شتمني نعمتونه دي. د هغو شکر په ښه عمل، د خلکو په مرسته او د مسؤلیت په ادا کولو سره وکړئ."
+}
+]
+},
+
+{
+id: "justice",
+title: "عدالت او انصاف",
+icon: "⚖️",
+description: "په کورنۍ، تجارت او ټولنه کې عدالت",
+sections: [
+{
+heading: "عدالت څه دی؟",
+text: "عدالت د خلکو حقونو ته رسېدل او د هر چا سره په انصاف چلند کول دي. مسلمان باید د خپلوانو او پردیو ترمنځ په حق کې توپیر ونه کړي."
+},
+{
+heading: "په تجارت کې انصاف",
+text: "په وزن او پیمانه کې انصاف وکړئ، د مال عیب مه پټوئ، د خلکو پیسې په ناحقه مه اخلئ او د معاملې شرایط واضح کړئ."
+},
+{
+heading: "د قهر پر مهال",
+text: "د غوسې پر مهال د بل چا حق مه ضایع کوئ. د شخړې په حل کې دواړه اړخونه واورئ او بې له ثبوته پر چا تور مه لګوئ."
+}
+]
+},
+
+{
+id: "time",
+title: "د وخت ارزښت",
+icon: "⏳",
+description: "د وخت مدیریت او د ګټورو کارونو پلان",
+sections: [
+{
+heading: "وخت یو نعمت دی",
+text: "وخت د انسان د ژوند یوه مهمه برخه ده. مسلمان باید خپل وخت د عبادت، زده کړې، کار، کورنۍ او استراحت ترمنځ په مناسب ډول ووېشي."
+},
+{
+heading: "ورځنی پلان",
+text: "د ورځې مهم کارونه ولیکئ، د لمانځه وختونه مراعت کړئ، د علم لپاره ځانګړی وخت وټاکئ او غیرضروري بوختیاوې کمې کړئ."
+},
+{
+heading: "د علم دوام",
+text: "هره ورځ لږ خو دوامدار علم زده کړئ. د یوې موضوع زده کړه، تکرار او عملي کول د اوږدمهاله پرمختګ لپاره ګټور دي."
+}
+]
+},
+
+{
+id: "knowledge_adab",
+title: "د علم او استاد آداب",
+icon: "📚",
+description: "د زده کوونکي مسؤلیتونه او د علم احترام",
+sections: [
+{
+heading: "د زده کړې نیت",
+text: "د علم د زده کړې نیت د ځان د اصلاح، د خلکو د ګټې او د حق د پېژندنې لپاره تازه کړئ."
+},
+{
+heading: "د استاد احترام",
+text: "له استاد سره په ادب خبرې وکړئ، پوښتنې په مناسب وخت وکړئ او د علم په اړه د اختلاف پر مهال له بدو خبرو څخه ډډه وکړئ."
+},
+{
+heading: "د معلوماتو تصدیق",
+text: "هره خبره چې په ټولنیزو رسنیو کې خپره شي، سمه نه وي. د حدیث، دیني حکم او تاریخي پېښې په اړه د سرچینې اعتبار وڅېړئ."
+},
+{
+heading: "پر علم عمل",
+text: "د علم موخه یوازې معلومات راټولول نه دي؛ د علم په رڼا کې د خپل اخلاقو، عبادت او چلند اصلاح هم مهمه ده."
+}
+]
+},
+
+{
+id: "neighbors",
+title: "د ګاونډي او مسافر حقونه",
+icon: "🏘️",
+description: "د ګاونډیانو، مېلمنو او مسافرو سره ښه چلند",
+sections: [
+{
+heading: "د ګاونډي احترام",
+text: "له ګاونډي سره ښه چلند وکړئ، د هغه د ارامۍ خیال وساتئ او په قصدي ډول یې مه ځوروئ."
+},
+{
+heading: "له مېلمه سره چلند",
+text: "مېلمه په ادب ومنئ، د خپل توان مطابق یې خدمت وکړئ او له تکلف او بې‌ځایه لګښت څخه ځان وساتئ."
+},
+{
+heading: "له مسافر سره مرسته",
+text: "که مسافر مرستې ته اړتیا ولري، د خپل توان او خوندیتوب مطابق مرسته ورسره وکړئ. د هغه د مال، اسنادو او عزت خیال وساتئ."
+}
+]
+},
+
+{
+id: "digitalethics",
+title: "اسلامي اخلاق په انټرنېټ کې",
+icon: "📱",
+description: "په ټولنیزو رسنیو کې رښتینولي او مسؤلیت",
+sections: [
+{
+heading: "د خبر تصدیق",
+text: "هر خبر له تصدیق پرته مه خپروئ. ناسم خبر د خلکو ترمنځ وېره، بدګماني او شخړې پیدا کولی شي."
+},
+{
+heading: "د خلکو عزت",
+text: "د نورو عکسونه، ویډیوګانې او شخصي معلومات د اجازې او قانوني حقونو په مراعتولو سره شریک کړئ. سپکاوی، ځورونه او د خلکو رازونه خپرول مه کوئ."
+},
+{
+heading: "د نظر اختلاف",
+text: "له خلکو سره د نظر اختلاف په ادب بیان کړئ. پر دلیل خبرې وکړئ او له سپکاوي او بې‌اساسه تورونو څخه ځان وساتئ."
+},
+{
+heading: "د وخت ساتنه",
+text: "ټولنیزې رسنۍ په مناسب وخت وکاروئ او د عبادت، کار، زده کړې، کورنۍ او خوب حقونه مه ضایع کوئ."
+}
+]
+}
+
+];
+
+/* نوې موضوعګانې اصلي اپلیکیشن ته ورزیاتول */
+for (const lesson of islamicLibraryPart4) {
+  if (!allTopics.some(topic => topic.id === lesson.id)) {
+    allTopics.push(lesson);
+  }
+}
+
+console.log(
+  "Noor-ul-Islam: د ټولو ثبت شوو درسونو شمېر =",
+  allTopics.length
+);
