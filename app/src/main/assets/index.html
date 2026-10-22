@@ -189,7 +189,7 @@ function renderLessons(){
   return lessonTitle(l).toLowerCase().includes(q)||
    lessonSections(l).some(s=>(sectionHeading(s)+" "+sectionBody(s)).toLowerCase().includes(q));
  });
- app.innerHTML=header("۱۰۰ اسلامي درسونه","هر کارت د یوې موضوع د زده کړې لپاره")+
+ app.innerHTML=header(LESSONS.length+" اسلامي درسونه","هر کارت د یوې موضوع د زده کړې لپاره")+
  `<div class="grid">${list.map(({l,i})=>card("🕌",lessonTitle(l),
  lessonSections(l).length+" برخې · د لوستلو لپاره کلیک وکړئ","lesson:"+i,
  "درس "+(i+1))).join("")}</div>`+
