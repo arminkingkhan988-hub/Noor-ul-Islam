@@ -138,9 +138,10 @@ function readSaved(){try{return JSON.parse(localStorage.getItem("noorSavedV2")||
 function saveSaved(a){localStorage.setItem("noorSavedV2",JSON.stringify(a))}
 function isSaved(id){return readSaved().includes(String(id))}
 function toggleSaved(id){
- id=String(id);let a=readSaved();
- a=a.includes(id)?a.filter(x=>x!==id):[...a,id];
- saveSaved(a);fetch("data/stories.json").then(r => { if (!r.ok) throw new Error("stories.json"); return r.json(); }).then(data => { STORIES = Array.isArray(data) ? data : []; render(); }).catch(err => { console.error("Stories load error:", err); STORIES = []; render(); });
+  id=String(id);
+  let a=readSaved();
+  a=a.includes(id)?a.filter(x=>x!==id):[...a,id];
+  saveSaved(a);
 }
 function surahName(s){return s.name||s.englishName||("سورت "+s.sura)}
 function surahNumber(s,i){return Number(s.sura||s.number||i+1)}
@@ -376,7 +377,23 @@ app.addEventListener("click",e=>{
  else if(action.startsWith("save:")){toggleSaved(action.slice(5));return}
  search.value="";query="";render();window.scrollTo(0,0);
 });
-render();
+
+fetch("data/stories.json")
+  .then(r => {
+    if (!r.ok) throw new Error("stories.json HTTP " + r.status);
+    return r.json();
+  })
+  .then(data => {
+    STORIES = Array.isArray(data) ? data : [];
+    console.log("Islamic stories loaded:", STORIES.length);
+    render();
+  })
+  .catch(err => {
+    console.error("Stories load error:", err);
+    STORIES = [];
+    render();
+  });
+
 </script>
 </body>
 </html>
