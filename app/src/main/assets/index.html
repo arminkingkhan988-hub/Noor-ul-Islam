@@ -391,6 +391,213 @@ hr {
 }
 </style>
 
+
+<style id="NOOR_COMPLETE_COLORFUL_REDESIGN_V2">
+/* NOOR_COMPLETE_COLORFUL_REDESIGN_V2 */
+:root {
+  --noor-green: #075b45;
+  --noor-deep: #034532;
+  --noor-gold: #c69b42;
+  --noor-cream: #faf7ec;
+  --noor-paper: #fffdf7;
+  --noor-text: #173d32;
+  --noor-muted: #718078;
+  --noor-border: #e8dfc9;
+  --noor-shadow: 0 8px 24px rgba(5,64,47,.09);
+  --noor-blue: #2869a6;
+  --noor-purple: #7650a4;
+  --noor-orange: #bd702b;
+  --noor-teal: #168b87;
+}
+
+* { box-sizing: border-box; }
+html {
+  background: var(--noor-cream) !important;
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0 !important;
+  color: var(--noor-text) !important;
+  background:
+    radial-gradient(ellipse at top right, rgba(198,155,66,.12), transparent 35%),
+    var(--noor-cream) !important;
+  font-family: "Noto Naskh Arabic", "Noto Sans Arabic", system-ui, sans-serif !important;
+  line-height: 1.85;
+  -webkit-tap-highlight-color: transparent;
+}
+#app {
+  width: 100%;
+  max-width: 960px;
+  margin-inline: auto;
+  padding: 12px;
+}
+
+/* سرلیک */
+header, .hero {
+  border: 1px solid rgba(198,155,66,.45) !important;
+  border-radius: 25px !important;
+  background: linear-gradient(135deg, #034532 0%, #087454 58%, #15916d 100%) !important;
+  color: #fffdf5 !important;
+  box-shadow: 0 12px 28px rgba(3,69,50,.18) !important;
+}
+.hero h1, header h1, .hero h2, header h2,
+#heroTitle, #heroSub, .hero p, header p {
+  color: #fffdf5 !important;
+}
+.brand { color: #f5d78e !important; }
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.badge {
+  display: inline-block;
+  border-radius: 999px !important;
+  background: #f7e8bd !important;
+  color: #624816 !important;
+  padding: 4px 11px !important;
+  border: 1px solid rgba(198,155,66,.45) !important;
+  font-weight: 700;
+}
+
+/* لټون */
+.search-wrap { margin-block: 16px !important; }
+.search, #search, input, textarea, select {
+  max-width: 100%;
+  color: var(--noor-text) !important;
+  background: #fffefa !important;
+  border: 1px solid #ded5bf !important;
+  border-radius: 15px !important;
+  padding: 12px 14px !important;
+  box-shadow: 0 3px 10px rgba(30,60,45,.035);
+}
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid rgba(198,155,66,.42) !important;
+  border-color: var(--noor-gold) !important;
+}
+
+/* د ټولو تڼیو منظم شکل */
+button, .btn, .button, a.tab {
+  border-radius: 13px;
+  font: inherit;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+button:active, .btn:active { transform: scale(.98); }
+button.primary, .primary, .btn-primary, button[type="submit"] {
+  background: linear-gradient(135deg, #075b45, #11835f) !important;
+  color: white !important;
+  border: 1px solid rgba(198,155,66,.65) !important;
+  box-shadow: 0 4px 12px rgba(5,64,47,.13);
+}
+
+/* د ټبونو او نیویګېشن برخه */
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-block: 14px;
+}
+.tab {
+  border: 1px solid var(--noor-border) !important;
+  background: var(--noor-paper) !important;
+  color: var(--noor-green) !important;
+  padding: 9px 14px !important;
+  border-radius: 14px !important;
+  font-weight: 700;
+}
+.tab.active, .active.tab {
+  color: white !important;
+  background: linear-gradient(135deg, #075b45, #11835f) !important;
+  border-color: var(--noor-gold) !important;
+  box-shadow: 0 5px 13px rgba(5,64,47,.15);
+}
+nav, .nav, .bottom, .bottom-nav, .tabbar {
+  border-color: var(--noor-border) !important;
+}
+
+/* عمومي کارتونه */
+.panel, .content, .lesson-content, .detail,
+article, .box, .card, .lesson-card, .section-card,
+.noor-courses-home [data-action] {
+  background: var(--noor-paper);
+  border: 1px solid var(--noor-border);
+  border-radius: 18px !important;
+  box-shadow: var(--noor-shadow);
+  padding: 15px;
+  margin-block: 12px;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block: 20px 10px;
+}
+.section-head h2, h2 {
+  color: var(--noor-green);
+}
+h3 { color: #245c49; }
+p { overflow-wrap: anywhere; }
+li { margin-block: 5px; }
+hr { border: 0; border-top: 1px solid var(--noor-border); }
+
+/* قرآن کریم او عربي متن */
+.arabic, .quran-text, .ayah, .verse, [lang="ar"], .surah-arabic {
+  color: #174b37;
+  font-family: "Noto Naskh Arabic", "Amiri", serif;
+  line-height: 2.25;
+}
+.quran-text, .ayah, .verse {
+  font-size: 1.25rem;
+}
+.quran, .surah, .surah-card {
+  border-color: rgba(198,155,66,.45);
+  border-radius: 18px;
+}
+
+/* رنګین نښې او کارتونه */
+.icon, .tag, .badge { border-radius: 12px; }
+.noor-courses-home { margin-block: 20px; }
+.noor-courses-home [data-action]:nth-child(4n+1) {
+  border-top: 4px solid var(--noor-green) !important;
+}
+.noor-courses-home [data-action]:nth-child(4n+2) {
+  border-top: 4px solid var(--noor-blue) !important;
+}
+.noor-courses-home [data-action]:nth-child(4n+3) {
+  border-top: 4px solid var(--noor-purple) !important;
+}
+.noor-courses-home [data-action]:nth-child(4n) {
+  border-top: 4px solid var(--noor-orange) !important;
+}
+.tag { background: #f1e5c5; color: #70521b; padding: 3px 9px; }
+
+/* ښکلی سکرول او موبایل */
+img, video, iframe { max-width: 100%; }
+button { min-height: 40px; }
+@media (max-width: 600px) {
+  #app { padding: 9px !important; }
+  header, .hero { border-radius: 21px !important; }
+  .tabs { gap: 6px; }
+  .tab { padding: 8px 10px !important; font-size: .92rem; }
+  .panel, .content, .lesson-content, .detail,
+  article, .box, .card, .lesson-card, .section-card {
+    padding: 12px;
+    border-radius: 16px !important;
+  }
+  .quran-text, .ayah, .verse { font-size: 1.18rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header class="hero">
