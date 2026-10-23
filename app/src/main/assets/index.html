@@ -3746,7 +3746,7 @@ function home(){
  ${card("🔖","خوندي شوي","خپل خوښ آیتونه او درسونه وګورئ","saved")}
  ${card("🌿","د اپ په اړه","وړیا، بې اعلاناتو او آفلاین","about"),card("📚","اسلامي کیسې","د پیغمبرانو، صحابه‌وو او ښو اخلاقو کیسې","stories")}
  </div>
- ${card("💬","۵۰۰ اسلامي ویناوې","۱۰ موضوعات · هر کارت کې ۵۰ ویناوې","quotes","نوی")}${header("د قرآن کریم سورتونه","د لوستلو لپاره سورت وټاکئ")}
+ ${card("🕌","د لمانځه او پاکوالي لارښود","لمونځ، اوداسه، غسل او تیمم","prayer-guides")}${card("💬","۵۰۰ اسلامي ویناوې","۱۰ موضوعات · هر کارت کې ۵۰ ویناوې","quotes","نوی")}${header("د قرآن کریم سورتونه","د لوستلو لپاره سورت وټاکئ")}
  <div class="grid">${QURAN.slice(0,6).map((s,i)=>card("📜",surahName(s),
  "سورت "+surahNumber(s,i)+" · "+versesOf(s).length+" آیتونه","surah:"+surahNumber(s,i))).join("")}</div>
  ${header("د اسلامي درسونو بېلګې","د موضوع د لوستلو لپاره کارت وټاکئ")}
@@ -3911,7 +3911,9 @@ function renderStory(index) {
 
 
 function render(){
-  if (page === "quotes" || page.startsWith("quotes:") || page === "quotes-saved") {
+  if (page === "prayer-guides") { renderPrayerGuides(); return; }
+  if (page.startsWith("prayer-topic:")) { renderPrayerTopic(page.slice(13)); return; }
+if (page === "quotes" || page.startsWith("quotes:") || page === "quotes-saved") {
     renderQuotes(); return;
   }
 
@@ -3935,6 +3937,14 @@ search.addEventListener("input",()=>{
 app.addEventListener("click",e=>{
  const b=e.target.closest("[data-action]");if(!b)return;
  const action=b.dataset.action;
+    if(action==="prayer-guides"){
+      page="prayer-guides";selectedSurah=null;selectedLesson=null;
+      search.value="";query="";render();window.scrollTo(0,0);return;
+    }
+    if(action.startsWith("prayer-topic:")){
+      page=action;search.value="";query="";render();window.scrollTo(0,0);return;
+    }
+    
 if(action==="quotes"){page="quotes";selectedSurah=null;selectedLesson=null;search.value="";query="";render();window.scrollTo(0,0);return}
 if(action.startsWith("quotes:")){page=action;search.value="";query="";render();window.scrollTo(0,0);return}
 if(action==="quotes-saved"){page="quotes-saved";search.value="";query="";render();return}
@@ -3970,6 +3980,46 @@ if(action.startsWith("quote-share:")){
  else if(action.startsWith("save:")){toggleSaved(action.slice(5));return}
  search.value="";query="";render();window.scrollTo(0,0);
 });
+
+/* Noor-ul-Islam: Prayer and purification guide */
+const PRAYER_GUIDES = [{"id": "prayer", "title": "د لمانځه بشپړ لارښود", "icon": "🕌", "steps": [{"title": "۱. نیت", "description": "په زړه کې د لمانځه نیت وکړئ."}, {"title": "۲. تکبیر تحریمه", "description": "الله اکبر ووایئ او لاسونه وتړئ."}, {"title": "۳. ثنا", "description": "سبحانك اللهم وبحمدك وتبارك اسمك وتعالى جدك ولا إله غيرك."}, {"title": "۴. قرائت", "description": "تعوذ، تسمیه، سورت فاتحه او د لمانځه مطابق بل سورت ولولئ."}, {"title": "۵. رکوع", "description": "رکوع ته لاړ شئ او سبحان ربي العظيم ووایئ."}, {"title": "۶. له رکوع پورته کېدل", "description": "سم ودرېږئ او د لمانځه اړوند ذکر ووایئ."}, {"title": "۷. لومړۍ سجده", "description": "سجده وکړئ او سبحان ربي الأعلى ووایئ."}, {"title": "۸. د دوو سجدو ترمنځ ناسته", "description": "په ارامۍ کښېنئ."}, {"title": "۹. دویمه سجده", "description": "دویمه سجده وکړئ."}, {"title": "۱۰. تشهد", "description": "په ناسته کې التحیات ولولئ."}, {"title": "۱۱. درود او دعا", "description": "په وروستۍ ناسته کې درود ابراهیمي او دعا ولولئ."}, {"title": "۱۲. سلام", "description": "ښي او چپ لوري ته السلام عليكم ورحمة الله ووایئ."}]}, {"id": "wudu", "title": "د اوداسه لارښود", "icon": "💧", "steps": [{"title": "۱. نیت", "description": "د اوداسه نیت وکړئ."}, {"title": "۲. لاسونه", "description": "لاسونه تر مړوندونو پورې ومینځئ."}, {"title": "۳. خوله او پوزه", "description": "خوله او پوزه پاکې کړئ."}, {"title": "۴. مخ", "description": "ټول مخ ومینځئ."}, {"title": "۵. لاسونه تر څنګلو", "description": "دواړه لاسونه تر څنګلو پورې ومینځئ."}, {"title": "۶. د سر مسح", "description": "د سر مسح وکړئ."}, {"title": "۷. پښې", "description": "پښې تر بجلکو پورې ومینځئ."}], "hanafi_fard": ["د مخ مینځل", "د لاسونو مینځل تر څنګلو پورې", "د سر د څلورمې برخې مسح", "د پښو مینځل تر بجلکو پورې"]}, {"id": "ghusl", "title": "د غسل لارښود", "icon": "🚿", "steps": [{"title": "۱. نیت", "description": "د غسل نیت وکړئ."}, {"title": "۲. ناپاکي پاکول", "description": "که ناپاکي وي، لومړی یې پاکه کړئ."}, {"title": "۳. خوله او پوزه", "description": "د حنفي طریقې له مخې خوله او پوزه ښه ومینځئ."}, {"title": "۴. ټول بدن", "description": "اوبه د ټول بدن هرې برخې ته ورسوئ."}], "hanafi_fard": ["خوله مینځل", "پوزه مینځل", "د ټول بدن مینځل"]}, {"id": "tayammum", "title": "د تیمم لارښود", "icon": "🌿", "steps": [{"title": "۱. د تیمم شرایط", "description": "تیمم د شرعي عذر او د معتبرې طریقې له مخې ترسره کېږي."}, {"title": "۲. نیت", "description": "د پاکوالي لپاره نیت وکړئ."}, {"title": "۳. د مخ مسح", "description": "پر پاکې مناسبې ځمکنۍ سطحې لاسونه ووهئ او مخ مسح کړئ."}, {"title": "۴. د لاسونو مسح", "description": "د حنفي طریقې مطابق لاسونه تر څنګلو پورې مسح کړئ."}]}];
+
+function renderPrayerGuides() {
+  app.innerHTML =
+    `<button class="back" data-action="home">← بېرته کورپاڼې ته</button>` +
+    header("د لمانځه او پاکوالي لارښود", "د حنفي طریقې له مخې د زده کړې کارتونه") +
+    `<div class="grid">` +
+    PRAYER_GUIDES.map(g =>
+      card(g.icon, g.title, (g.steps || []).length + " ګامونه · د لوستلو لپاره کلیک وکړئ", "prayer-topic:" + g.id)
+    ).join("") +
+    `</div>`;
+}
+
+function renderPrayerTopic(id) {
+  const g = PRAYER_GUIDES.find(x => x.id === id);
+  if (!g) { renderPrayerGuides(); return; }
+
+  let html = `<button class="back" data-action="prayer-guides">← بېرته لارښودونو ته</button>`;
+  html += header(g.icon + " " + g.title, "هر ګام په غور ولولئ");
+
+  html += `<div class="grid">` + (g.steps || []).map((s, i) =>
+    `<article class="panel" style="border-radius:18px;padding:18px;margin:8px 0">
+      <div style="font-size:28px;margin-bottom:8px">${["🟢","💧","📖","🤲","🕌","✨"][i % 6]}</div>
+      <h3>${esc(s.title || "")}</h3>
+      <p style="line-height:1.9">${esc(s.description || "")}</p>
+    </article>`
+  ).join("") + `</div>`;
+
+  if (Array.isArray(g.hanafi_fard) && g.hanafi_fard.length) {
+    html += header("د حنفي طریقې فرضونه", "د زده کړې لپاره");
+    html += `<div class="panel"><ol>` +
+      g.hanafi_fard.map(x => `<li style="margin:10px 0;line-height:1.8">${esc(x)}</li>`).join("") +
+      `</ol></div>`;
+  }
+
+  app.innerHTML = html;
+}
+
 </script>
 </body>
 </html>
