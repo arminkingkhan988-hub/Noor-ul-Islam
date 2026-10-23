@@ -3910,7 +3910,92 @@ function renderStory(index) {
 }
 
 
+
+// ===== د قرآن کریم کیسې او علمي الهامونه =====
+let QURAN_INSPIRATION = [];
+
+async function loadQuranInspiration() {
+  if (QURAN_INSPIRATION.length) return;
+  try {
+    const response = await fetch("data/quran_inspiration_lessons.json");
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    QURAN_INSPIRATION = await response.json();
+  } catch (error) {
+    console.error("د قرآني الهامونو لوستل ناکام شول:", error);
+    QURAN_INSPIRATION = [];
+  }
+}
+
+function renderQuranInspiration() {
+  const term = (query || "").toLocaleLowerCase();
+  const list = QURAN_INSPIRATION.filter(l =>
+    [l.title, l.category, l.surah, l.reference, l.story,
+     l.moral, l.scientific_inspiration]
+      .some(v => String(v || "").toLocaleLowerCase().includes(term))
+  );
+
+  app.innerHTML = `
+    <button class="back" data-action="home">← کورپاڼې ته بېرته</button>
+    ${header("د قرآن کریم کیسې او علمي الهامونه",
+      `${QURAN_INSPIRATION.length} درسونه · قرآني حوالې، اخلاق او علمي زده کړه`)}
+    <p class="small">علمي تشبیه د آیت قطعي تفسیر نه دی. د دیني معنا لپاره معتبر تفسیرونه وګورئ.</p>
+    <div class="grid">
+      ${list.map(l => `
+        <button class="card" data-action="inspiration:${l.number}">
+          <div class="icon">📚</div>
+          <h3>${esc(l.title)}</h3>
+          <p>${esc(l.surah)} · ${esc(l.reference)}</p>
+          <span class="pill">${esc(l.category)}</span>
+          <p>${esc(String(l.moral || "").slice(0, 115))}</p>
+        </button>
+      `).join("") || "<p>مناسب درس پیدا نه شو.</p>"}
+    </div>`;
+}
+
+function renderQuranInspirationLesson(number) {
+  const l = QURAN_INSPIRATION.find(x => Number(x.number) === Number(number));
+  if (!l) {
+    page = "quran-inspiration";
+    renderQuranInspiration();
+    return;
+  }
+
+  const quiz = Array.isArray(l.quiz) ? l.quiz : [];
+  app.innerHTML = `
+    <button class="back" data-action="quran-inspiration">← ټولو درسونو ته بېرته</button>
+    ${header(l.title, `قرآني حواله: ${l.surah} ${l.reference}`)}
+    <div class="card">
+      <h3>📖 د کیسې او آیت تشریح</h3>
+      <p>${esc(l.story)}</p>
+    </div>
+    <div class="card">
+      <h3>💚 اخلاقي عبرت</h3>
+      <p>${esc(l.moral)}</p>
+    </div>
+    <div class="card">
+      <h3>🔬 علمي الهام</h3>
+      <p>${esc(l.scientific_inspiration)}</p>
+    </div>
+    <div class="card">
+      <h3>⚖️ د تفسیر او علم ترمنځ توپیر</h3>
+      <p>${esc(l.interpretation_note)}</p>
+    </div>
+    <div class="card">
+      <h3>🧪 عملي فعالیت</h3>
+      <p>${esc(l.activity)}</p>
+    </div>
+    <div class="card">
+      <h3>❓ د زده کړې پوښتنې</h3>
+      ${quiz.map((q, i) => `<p>${i + 1}. ${esc(q)}</p>`).join("")}
+    </div>`;
+}
+
 function render(){
+  if (page === "quran-inspiration") { renderQuranInspiration(); return; }
+  if (page.startsWith("inspiration:")) {
+    renderQuranInspirationLesson(Number(page.split(":")[1]));
+    return;
+  }
   if (page === "life") { renderLifeLessons(); return; }
   if (page.startsWith("life:")) {
     renderLifeLesson(Number(page.slice(5)));
@@ -3943,6 +4028,25 @@ search.addEventListener("input",()=>{
 app.addEventListener("click",e=>{
  const b=e.target.closest("[data-action]");if(!b)return;
  const action=b.dataset.action;
+ if (action === "quran-inspiration") {
+   page = "quran-inspiration";
+   query = "";
+   search.value = "";
+   loadQuranInspiration().then(() => {
+     if (page === "quran-inspiration") render();
+   });
+   render();
+   window.scrollTo(0, 0);
+   return;
+ }
+ if (action.startsWith("inspiration:")) {
+   page = action;
+   query = "";
+   search.value = "";
+   render();
+   window.scrollTo(0, 0);
+   return;
+ }
     if (action === "life" || action.startsWith("life:")) {
       page = action === "life" ? "life" : action;
       selectedSurah = null;
