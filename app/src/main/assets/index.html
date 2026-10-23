@@ -127,6 +127,8 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
  <input id="search" class="search" placeholder="🔎 قرآن، سورت یا اسلامي درس ولټوئ..." autocomplete="off">
 </div>
 <nav class="tabs">
+<button type="button" onclick="noorOpenAllahNames()">📿 د الله تعالی ۹۹ نومونه</button>
+
  <button class="tab active" data-page="home">کورپاڼه</button>
  <button class="tab" data-page="quran">قرآن کریم</button>
  <button class="tab" data-page="lessons">درسونه</button>
@@ -4235,5 +4237,97 @@ function renderLifeLesson(i) {
 }
 
 </script>
+
+
+<!-- NOOR_ALLAH_NAMES_START -->
+<section id="allahNamesPage" style="display:none;padding:16px;max-width:1000px;margin:auto">
+  <button type="button" onclick="noorAllahBack()" style="padding:10px 16px;border:0;border-radius:12px;background:#075b45;color:white;font-size:16px">← بېرته</button>
+  <div style="text-align:center;padding:20px 8px">
+    <div style="font-size:42px">☪️</div>
+    <h2 style="color:#075b45;margin:8px 0">أَسْمَاءُ اللَّهِ الْحُسْنَى</h2>
+    <p>د الله تعالی ۹۹ ښکلي نومونه، پښتو ژباړه او تشریح</p>
+    <input id="noorAllahSearch" type="search" placeholder="د نوم یا ژباړې لټون..." style="box-sizing:border-box;width:100%;max-width:500px;padding:13px;border:1px solid #b7cbbf;border-radius:12px;font-size:16px">
+  </div>
+  <div id="noorAllahNamesGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px"></div>
+  <p style="font-size:12px;text-align:center;color:#667" >یادونه: د نومونو د ترتیب او ځینو معناوو په اړه د علماوو په بیانونو کې توپیر شته؛ د دیني تدریس لپاره له باوري عالم سره هم مراجعه وکړئ.</p>
+</section>
+<script>
+(function(){
+'use strict';
+const page = document.getElementById('allahNamesPage');
+if (!page) return;
+let allNames = [];
+const grid = document.getElementById('noorAllahNamesGrid');
+const search = document.getElementById('noorAllahSearch');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+function render(list){
+  grid.innerHTML = list.map(n => `
+    <article style="border:1px solid #d7e5dc;border-radius:16px;padding:16px;background:linear-gradient(145deg,#fff,#f0f8f2);box-shadow:0 3px 12px #0000000b">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+        <span style="font-size:12px;color:#527566">نوم ${n.id} / 99</span>
+        <button type="button" data-bookmark="${n.id}" aria-label="نښه کول" style="border:0;background:transparent;font-size:20px">☆</button>
+      </div>
+      <div dir="rtl" style="font-size:29px;line-height:1.8;text-align:center;color:#075b45;font-family:serif">${esc(n.arabic)}</div>
+      <h3 style="text-align:center;margin:6px 0;color:#143c2e">${esc(n.pashto)}</h3>
+      <p style="margin:8px 0;line-height:1.9;color:#34483e">${esc(n.explanation)}</p>
+    </article>`).join('');
+  grid.querySelectorAll('[data-bookmark]').forEach(btn=>{
+    const id=Number(btn.dataset.bookmark);
+    const get=()=>{try{return JSON.parse(localStorage.getItem('noorAllahBookmarks')||'[]')}catch(e){return []}};
+    const update=()=>btn.textContent=get().includes(id)?'★':'☆';
+    update();
+    btn.addEventListener('click',()=>{
+      let ids=get();
+      ids=ids.includes(id)?ids.filter(x=>x!==id):ids.concat(id);
+      localStorage.setItem('noorAllahBookmarks',JSON.stringify(ids));
+      update();
+    });
+  });
+}
+function showPage(){
+  document.querySelectorAll('body > *').forEach(el=>{
+    if(el!==page && el.tagName!=='SCRIPT') el.dataset.noorAllahPrevDisplay=el.style.display;
+  });
+  page.style.display='block';
+  render(allNames);
+}
+window.noorOpenAllahNames = async function(){
+  try {
+    const response=await fetch('./data/allah_names.json');
+    if(!response.ok) throw new Error('data file not found');
+    allNames=await response.json();
+  } catch(e) {
+    alert('د الله تعالی نومونو فایل ونه لوستل شو. د اپلیکیشن فایلونه وګورئ.');
+    return;
+  }
+  document.querySelectorAll('body > *').forEach(el=>{
+    if(el!==page && el.tagName!=='SCRIPT' && el.id!=='allahNamesPage'){
+      if(!el.hasAttribute('data-noor-allah-display-saved')){
+        el.dataset.noorAllahOldDisplay=el.style.display;
+        el.setAttribute('data-noor-allah-display-saved','1');
+      }
+      el.style.display='none';
+    }
+  });
+  showPage();
+};
+window.noorAllahBack=function(){
+  page.style.display='none';
+  document.querySelectorAll('[data-noor-allah-display-saved="1"]').forEach(el=>{
+    el.style.display=el.dataset.noorAllahOldDisplay||'';
+    el.removeAttribute('data-noor-allah-display-saved');
+    delete el.dataset.noorAllahOldDisplay;
+  });
+};
+search.addEventListener('input',()=>{
+  const q=search.value.trim().toLocaleLowerCase();
+  render(allNames.filter(n=>(n.arabic+' '+n.pashto+' '+n.explanation).toLocaleLowerCase().includes(q)));
+});
+})();
+</script>
+<!-- NOOR_ALLAH_NAMES_END -->
+
 </body>
 </html>
