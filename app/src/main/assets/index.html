@@ -3785,10 +3785,32 @@ function renderSurah(num){
   const id="v:"+surahNumber(s,idx)+":"+String(v.aya??i+1);
   return `<div class="verse"><div class="arabic">${esc(v.arabic||"")}</div>
   <div class="pashto">${esc(v.pashto||"ژباړه نشته")}</div>
-  <div class="verse-tools"><span class="verse-number">آیت ${esc(v.aya??i+1)}</span>
+  <div class="verse-tools"><span class="verse-number">آیت ${esc(v.aya??i+1)}</span><button class="mini" data-action="quran-audio:${surahNumber(s,idx)}:${esc(v.aya??i+1)}">▶️ تلاوت</button>
   <button class="mini" data-action="save:${esc(id)}">${isSaved(id)?"★ خوندي دی":"☆ خوندي کول"}</button></div></div>`;
  }).join("")}</div>`+(filtered.length?"":'<div class="empty">آیت ونه موندل شو.</div>');
 }
+
+// ===== د قرآن کریم د آیتونو آډیو =====
+let quranAudioPlayer = null;
+
+function playQuranAyahAudio(surah, ayah) {
+  const audioUrl =
+    "https://everyayah.com/data/Alafasy_128kbps/" +
+    String(surah).padStart(3, "0") +
+    String(ayah).padStart(3, "0") + ".mp3";
+
+  if (quranAudioPlayer) {
+    quranAudioPlayer.pause();
+    quranAudioPlayer.currentTime = 0;
+  }
+
+  quranAudioPlayer = new Audio(audioUrl);
+  quranAudioPlayer.play().catch(() => {
+    alert("تلاوت ونه چلېد؛ انټرنېټ وګورئ یا وروسته بیا هڅه وکړئ.");
+  });
+}
+
+
 function renderLessons(){
  const list=LESSONS.map((l,i)=>({l,i})).filter(({l})=>{
   if(!query)return true;
@@ -4031,7 +4053,15 @@ search.addEventListener("input",()=>{
  if(page==="home"){page="lessons";selectedLesson=null;selectedSurah=null}
  render();
 });
+
 app.addEventListener("click",e=>{
+  const audioButton = e.target.closest('[data-action^="quran-audio:"]');
+  if (audioButton) {
+    const parts = audioButton.dataset.action.split(":");
+    playQuranAyahAudio(Number(parts[1]), Number(parts[2]));
+    return;
+  }
+
  const b=e.target.closest("[data-action]");if(!b)return;
  const action=b.dataset.action;
  if (action === "quran-inspiration") {
